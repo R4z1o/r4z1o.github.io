@@ -127,7 +127,7 @@ Since this is credentialed, i used them to gather Bloodhound digest to get a bet
 
 As we can see our user `levi.james` is part of the `HR` group, who's members have `GenericWrite` over the `DEVELOPERS` Group. 
 
-![[Puppy2.png]]
+![ ](Puppy2.png)
 
 We can leverage that by adding this user the  `DEVELOPERS` Group.
 
@@ -172,7 +172,7 @@ smb: \> ls
 
 While trying to access it, it looks like it require a password.
 
-![[Puppy3.png]]
+![ ](Puppy3.png)
 
 I cracked the `.kdbx` file using the [keepass4brute](https://github.com/r3nt0n/keepass4brute), and the password is `liverpool`
 
@@ -190,7 +190,7 @@ https://github.com/r3nt0n/keepass4brute
 
 As we see i got access to these users passwords.
 
-![[Puppy4.png]]
+![ ](Puppy4.png)
 
 The `adam.silver` password is not working  as `nxc` show below.
 
@@ -212,7 +212,7 @@ SMB         10.10.11.70     445    DC               [+] PUPPY.HTB\ant.edwards:An
 
 After a quick search on this user, i found that we have `GenericAll` over the `adam.silver` user, who is part of the `Remote Management` Group.
 
-![[Puppy5.png]]
+![ ](Puppy5.png)
 
 We can now change this user's password.
 
@@ -237,7 +237,7 @@ modifying entry "CN=Adam D. Silver,CN=Users,DC=PUPPY,DC=HTB"
 
 And just like that we got the user flag!!
 
-![[Puppy6.png]]
+![ ](Puppy6.png)
 
 ## Root :
 
@@ -255,7 +255,7 @@ Mode                 LastWriteTime         Length Name
 
 After getting the zip file locally and looking through it i found this config file, that expose the `steph.cooper` credentials.
 
-![[Puppy7.png]]
+![ ](Puppy7.png)
 
 These are valid as `nxc` says.
 
@@ -388,7 +388,7 @@ Unknown     : FivethChipOnItsWay2025!
 
 `Bloodhound` shows that this user have DCSync Right over the whole domain.
 
-![[Puppy1.png]]
+![ ](Puppy1.png)
 
 Now let's DCsync using `secretsdump.py` :
 

